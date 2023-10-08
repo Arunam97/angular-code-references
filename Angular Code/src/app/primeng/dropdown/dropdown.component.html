@@ -1,0 +1,8 @@
+<a href="https://primeng.org/dropdown" target="_blank">PrimeNG Dropdown Reference</a>
+
+<div>
+<p-dropdown [(ngModel)]="selectedCity" [options]="cities" optionLabel="name"></p-dropdown>
+</div>
+
+<p>Selected city name is : {{selectedCity?.name}}</p>
+<p>Selected city code is : {{selectedCity?.code}}</p>

@@ -1,0 +1,7 @@
+<!--@Input()-->
+<!--@Output()-->
+<app-child1 [childVariable1]="parentVariable1"
+           [childCustomProperty]="parentVariable2"
+           (childEventEmitter)="emitReceiver($event)">
+</app-child1>
+<p>{{ receivedMessage }}</p>

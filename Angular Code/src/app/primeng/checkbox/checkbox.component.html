@@ -1,0 +1,14 @@
+<a href="https://primeng.org/checkbox" target="_blank">PrimeNG Checkbox Reference</a>
+
+<div>
+  <p-checkbox name="group-name" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
+  <label for="ny">New York</label>
+
+  <p-checkbox name="group-name" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
+  <label for="sf">San Francisco</label>
+
+  <p-checkbox name="group-name" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
+  <label for="la">Los Angeles</label>
+</div>
+
+<p>Selected cities are : {{selectedCities}}</p>

@@ -1,0 +1,11 @@
+div {
+  margin: 1vw;
+  border: solid red;
+  display: flex;
+  flex-direction: row;
+}
+
+div * {
+  margin: 1vw;
+  border: solid blue;
+}

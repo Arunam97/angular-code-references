@@ -1,0 +1,10 @@
+<!--Element Reference-->
+<p #elementTemplateReferenceVariable>"Element Reference: This 'p' element has 'elementReferenceVariable' tag."</p>
+<p>elementTemplateReferenceVariable = <code>{{ elementTemplateReferenceVariable }}</code></p>
+<p>elementTemplateReferenceVariable.innerText = <code>{{ elementTemplateReferenceVariable.innerText }}</code></p>
+
+<!--@ViewChild()-->
+<p #viewChildTemplateReferenceVariable>"@ViewChild(): This 'p' element has 'viewChildTemplateReferenceVariable' tag and will be assigned to 'viewChildVariable'."</p>
+<p>viewChildVariable = <code>{{ viewChildVariable }}</code></p>
+<p>viewChildVariable.nativeElement = <code>{{ viewChildVariable.nativeElement }}</code></p>
+<p>viewChildVariable.nativeElement.innerText = <code>{{ viewChildVariable.nativeElement.innerText }}</code></p>

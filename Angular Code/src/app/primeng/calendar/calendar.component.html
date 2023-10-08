@@ -1,0 +1,26 @@
+<a href="https://primeng.org/calendar" target="_blank">PrimeNG Calendar Reference</a>
+
+<div>
+
+  <p-calendar [(ngModel)]="date"
+              [inline]="true"
+              dateFormat="dd/mm/yy"
+              [firstDayOfWeek]="1"
+              [showButtonBar]="true"
+  ></p-calendar>
+
+  <p-calendar [(ngModel)]="date"
+              [inline]="true"
+              dateFormat="mm/yy"
+              view="month"
+  ></p-calendar>
+
+  <p-calendar [(ngModel)]="date"
+              [inline]="true"
+              dateFormat="yy"
+              view="year"
+  ></p-calendar>
+
+</div>
+
+<p>Date selected is : {{date}}</p>
