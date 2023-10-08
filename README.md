@@ -2,13 +2,13 @@
 
 ## Components
 
-**Reference: [new](Angular-Complete-Guide-Code/src/app/new)** component.
+**Reference: [new](Angular-Code/src/app/new)**
 
 Components are the basic building blocks of Angular.
 
 ### Lifecycle
 
-**Reference: [lifecycle](Angular-Complete-Guide-Code/src/app/lifecycle)** component.
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
 
 When an Angular component is loaded and executed on a browser it goes through different stages of its lifecycle. We can use lifecycle hooks provided by Angular to run our code after specific stages of the component have completed.
 
