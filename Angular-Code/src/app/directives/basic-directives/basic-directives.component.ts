@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-basic-directives',
@@ -13,7 +13,7 @@ export class BasicDirectivesComponent {
   newStyle = {background: 'lightblue', color: 'red'};
 
   // ngClass
-  // style1 and style2 are defined in directives.component.css file.
+  // style1 and style2 are defined in basic-directives.component.css file.
   style2Condition: boolean = true;
 
   // ngFor
@@ -24,4 +24,7 @@ export class BasicDirectivesComponent {
     {"name": "Eva", "age": 28},
     {"name": "David", "age": 40}
   ];
+
+  // ngSwitch
+  switchValue: number = 0;
 }

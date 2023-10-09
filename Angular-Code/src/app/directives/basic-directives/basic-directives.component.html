@@ -1,10 +1,10 @@
 <!--ngIf-->
-<button (click)="booleanVariable=true">ngIf: Click to change booleanVariable to True.</button>
+<button (click)="booleanVariable=true">ngIf: Click to change 'booleanVariable' to True.</button>
 <br>
-<button (click)="booleanVariable=false">ngIf: Click to change booleanVariable to False.</button>
-<p *ngIf="booleanVariable; else templateElement">ngIf: This text is shown only if booleanVariable is True.</p>
+<button (click)="booleanVariable=false">ngIf: Click to change 'booleanVariable' to False.</button>
+<p *ngIf="booleanVariable; else templateElement">ngIf: This text is shown only if 'booleanVariable' is True.</p>
 <ng-template #templateElement>
-  <p>ngIf: This text is shown only if booleanVariable is False.</p>
+  <p>ngIf: This text is shown only if 'booleanVariable' is False.</p>
 </ng-template>
 
 <!--ngStyle-->
@@ -32,3 +32,11 @@
   </tr>
   </tbody>
 </table>
+
+<!--ngSwitch-->
+<div [ngSwitch]="switchValue">
+  <p *ngSwitchCase="0">ngSwitch: This text is displayed if 'switchValue' is 0.</p>
+  <p *ngSwitchCase="5">ngSwitch: This text is displayed if 'switchValue' is 5.</p>
+  <p *ngSwitchCase="10">ngSwitch: This text is displayed if 'switchValue' is 10.</p>
+  <p *ngSwitchDefault>ngSwitch: This text is displayed if 'switchValue' is anything other than 0, 5 or 10.</p>
+</div>

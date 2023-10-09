@@ -7,5 +7,5 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 })
 export class TemplateVariableViewChildComponent {
   // @ViewChild()
-  @ViewChild('viewChildTemplateReferenceVariable', {static: true}) viewChildVariable!: ElementRef;
+  @ViewChild('viewChildTemplateReference', {static: true}) viewChildVariable!: ElementRef;
 }

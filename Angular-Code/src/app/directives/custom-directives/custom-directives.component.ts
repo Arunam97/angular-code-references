@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-custom-directives',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./custom-directives.component.css']
 })
 export class CustomDirectivesComponent {
-
+  // Custom Structural Directive
+  booleanVar: boolean = true;
 }

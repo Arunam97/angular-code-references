@@ -6,8 +6,11 @@
 <p [innerText]="propertyBindingText"></p>
 
 <!--Event Binding-->
-<button (click)="eventBindingFunction()">Event Binding (click) : Click to change the text below using a function.</button><br>
-<button (click)="eventBindingText='Event Binding (in-line): The button was reset.'">Event Binding : Reset the text below using in-line TypeScript code.</button>
+<button (click)="eventBindingFunction()">Event Binding (click) : Click to change the text below using a function.</button>
+<br>
+<button (click)="eventBindingText='Event Binding (in-line): The button was reset.'">Event Binding : Reset the text below
+  using in-line TypeScript code.
+</button>
 <p>{{ eventBindingText }}</p>
 
 <!--$event-->

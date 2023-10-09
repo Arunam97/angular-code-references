@@ -44,7 +44,6 @@ import {OverlayPanelComponent} from './primeng/overlay-panel/overlay-panel.compo
 import {SidebarComponent} from './primeng/sidebar/sidebar.component';
 import {TooltipComponent} from './primeng/tooltip/tooltip.component';
 import {LifecycleComponent} from './lifecycle/lifecycle.component';
-import {CustomDirective} from './directives/custom-directives/custom/custom.directive';
 import {NewComponent} from './new/new.component';
 import {TemplateVariableViewChildComponent} from './data-binding/template-variable-view-child/template-variable-view-child.component';
 import {BasicDirectivesComponent} from './directives/basic-directives/basic-directives.component';
@@ -54,6 +53,8 @@ import {Child1Component} from './data-binding/atInput-atOutput/child1/child1.com
 import {Parent2Component} from './data-binding/ngContent-atContentChild/parent2/parent2.component';
 import {Child2Component} from './data-binding/ngContent-atContentChild/child2/child2.component';
 import {CustomDirectivesComponent} from './directives/custom-directives/custom-directives.component';
+import { CustomStructuralDirective } from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
+import { CustomAttributeDirective } from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,6 @@ import {CustomDirectivesComponent} from './directives/custom-directives/custom-d
     SidebarComponent,
     TooltipComponent,
     LifecycleComponent,
-    CustomDirective,
     NewComponent,
     TemplateVariableViewChildComponent,
     BasicDirectivesComponent,
@@ -88,7 +88,9 @@ import {CustomDirectivesComponent} from './directives/custom-directives/custom-d
     Child1Component,
     Parent2Component,
     Child2Component,
-    CustomDirectivesComponent
+    CustomDirectivesComponent,
+    CustomStructuralDirective,
+    CustomAttributeDirective
   ],
   imports: [
     BrowserModule,

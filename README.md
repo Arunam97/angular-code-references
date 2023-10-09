@@ -60,9 +60,9 @@ Called once the component is about to be destroyed.
 
 ### @Output()
 
-### Element Reference
+### Template Reference
 
-### @ViewChild
+#### @ViewChild
 
 ### ng-content
 
@@ -78,10 +78,13 @@ Called once the component is about to be destroyed.
 
 ### ngFor
 
+### ngSwitch
+
 ### Custom Directives
 
 #### Renderer
 
+#### @HostBinding
+
 #### @HostListener
 
-#### @HostBinding
