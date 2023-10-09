@@ -45,7 +45,6 @@ import {SidebarComponent} from './primeng/sidebar/sidebar.component';
 import {TooltipComponent} from './primeng/tooltip/tooltip.component';
 import {LifecycleComponent} from './lifecycle/lifecycle.component';
 import {NewComponent} from './new/new.component';
-import {TemplateVariableViewChildComponent} from './data-binding/template-variable-view-child/template-variable-view-child.component';
 import {BasicDirectivesComponent} from './directives/basic-directives/basic-directives.component';
 import {BasicDataBindingComponent} from './data-binding/basic-data-binding/basic-data-binding.component';
 import {Parent1Component} from './data-binding/atInput-atOutput/parent1/parent1.component';
@@ -55,6 +54,7 @@ import {Child2Component} from './data-binding/ngContent-atContentChild/child2/ch
 import {CustomDirectivesComponent} from './directives/custom-directives/custom-directives.component';
 import { CustomStructuralDirective } from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
 import { CustomAttributeDirective } from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
+import { TemplateReferenceViewChildComponent } from './data-binding/template-reference-view-child/template-reference-view-child.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,6 @@ import { CustomAttributeDirective } from './directives/custom-directives/custom-
     TooltipComponent,
     LifecycleComponent,
     NewComponent,
-    TemplateVariableViewChildComponent,
     BasicDirectivesComponent,
     BasicDataBindingComponent,
     Parent1Component,
@@ -90,7 +89,8 @@ import { CustomAttributeDirective } from './directives/custom-directives/custom-
     Child2Component,
     CustomDirectivesComponent,
     CustomStructuralDirective,
-    CustomAttributeDirective
+    CustomAttributeDirective,
+    TemplateReferenceViewChildComponent
   ],
   imports: [
     BrowserModule,

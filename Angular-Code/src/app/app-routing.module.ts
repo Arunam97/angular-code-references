@@ -27,11 +27,11 @@ import {Child2Component} from "./data-binding/ngContent-atContentChild/child2/ch
 import {Parent1Component} from "./data-binding/atInput-atOutput/parent1/parent1.component";
 import {BasicDataBindingComponent} from "./data-binding/basic-data-binding/basic-data-binding.component";
 import {Parent2Component} from "./data-binding/ngContent-atContentChild/parent2/parent2.component";
-import {
-  TemplateVariableViewChildComponent
-} from "./data-binding/template-variable-view-child/template-variable-view-child.component";
 import {BasicDirectivesComponent} from "./directives/basic-directives/basic-directives.component";
 import {CustomDirectivesComponent} from "./directives/custom-directives/custom-directives.component";
+import {
+  TemplateReferenceViewChildComponent
+} from "./data-binding/template-reference-view-child/template-reference-view-child.component";
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -41,7 +41,7 @@ const routes: Routes = [
   {path: "basic-data-binding", component: BasicDataBindingComponent},
   {path: "child2", component: Child2Component},
   {path: "parent2", component: Parent2Component},
-  {path: "template-variable-view-child", component: TemplateVariableViewChildComponent},
+  {path: "template-reference-view-child", component: TemplateReferenceViewChildComponent},
   {path: "basic-directives", component: BasicDirectivesComponent},
   {path: "custom-directives", component: CustomDirectivesComponent},
   {path: "lifecycle", component: LifecycleComponent},
