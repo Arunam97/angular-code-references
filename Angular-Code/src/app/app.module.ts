@@ -52,9 +52,17 @@ import {Child1Component} from './data-binding/atInput-atOutput/child1/child1.com
 import {Parent2Component} from './data-binding/ngContent-atContentChild/parent2/parent2.component';
 import {Child2Component} from './data-binding/ngContent-atContentChild/child2/child2.component';
 import {CustomDirectivesComponent} from './directives/custom-directives/custom-directives.component';
-import { CustomStructuralDirective } from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
-import { CustomAttributeDirective } from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
-import { TemplateReferenceViewChildComponent } from './data-binding/template-reference-view-child/template-reference-view-child.component';
+import {
+  CustomStructuralDirective
+} from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
+import {
+  CustomAttributeDirective
+} from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
+import {
+  TemplateReferenceViewChildComponent
+} from './data-binding/template-reference-view-child/template-reference-view-child.component';
+import {ServicesComponent} from './services/services.component';
+import {BasicService} from "./services/basic-service/basic.service";
 
 @NgModule({
   declarations: [
@@ -90,7 +98,8 @@ import { TemplateReferenceViewChildComponent } from './data-binding/template-ref
     CustomDirectivesComponent,
     CustomStructuralDirective,
     CustomAttributeDirective,
-    TemplateReferenceViewChildComponent
+    TemplateReferenceViewChildComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +125,7 @@ import { TemplateReferenceViewChildComponent } from './data-binding/template-ref
     SidebarModule,
     TooltipModule
   ],
-  providers: [],
+  providers: [BasicService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

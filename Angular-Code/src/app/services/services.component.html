@@ -1,0 +1,33 @@
+<p>{{ basicServiceValue }}</p>
+
+<form>
+  <label for="personName">Name</label>
+  <input type="text" id="personName" name="name" #nameInput>
+  <br>
+
+  <label for="personEmail">Email</label>
+  <input type="text" id="personEmail" name="email" #emailInput>
+  <br>
+  <br>
+
+  <button (click)="addPerson(nameInput.value, emailInput.value)">Add Person to List.</button>
+  <br>
+  <br>
+</form>
+
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let per of people">
+    <td>{{ per.name }}</td>
+    <td>{{ per.email }}</td>
+  </tr>
+  </tbody>
+</table>

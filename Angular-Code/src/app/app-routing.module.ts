@@ -32,6 +32,7 @@ import {CustomDirectivesComponent} from "./directives/custom-directives/custom-d
 import {
   TemplateReferenceViewChildComponent
 } from "./data-binding/template-reference-view-child/template-reference-view-child.component";
+import {ServicesComponent} from "./services/services.component";
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -45,6 +46,7 @@ const routes: Routes = [
   {path: "basic-directives", component: BasicDirectivesComponent},
   {path: "custom-directives", component: CustomDirectivesComponent},
   {path: "lifecycle", component: LifecycleComponent},
+  {path: "services", component: ServicesComponent},
   {path: "primeng", component: PrimengComponent},
   {path: "calendar", component: CalendarComponent},
   {path: "checkbox", component: CheckboxComponent},

@@ -74,6 +74,8 @@ A special variable in Angular event bindings that captures and provides access t
 
 ### 4. Two-Way Binding - [(ngModel)]
 
+**Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
+
 Binding both the property and event together for real-time updates between the component and the view.
 
 ### @Input()
@@ -163,3 +165,7 @@ Decorator to bind a host element property in a custom directive.
 #### @HostListener
 
 Decorator to subscribe to events of the host element in a custom directive.
+
+## Services
+
+**Reference: [services](Angular-Code/src/app/services)**
