@@ -1,6 +1,45 @@
 # Angular Reference Sheet
 
-## Components
+- [Components](#components)
+    - [Lifecycle](#lifecycle)
+- [Data Binding](#data-binding)
+    - [String Interpolation](#1-string-interpolation)
+    - [Property Binding](#2-property-binding)
+    - [Event Binding](#3-event-binding)
+    - [Two-Way Binding - [(ngModel)]](#4-two-way-binding---ngmodel)
+    - [@Input()](#input)
+    - [@Output()](#output)
+    - [Template Reference](#template-reference)
+- [Directives](#directives)
+    - [ngIf](#ngif)
+    - [ngStyle](#ngstyle)
+    - [ngClass](#ngclass)
+    - [ngFor](#ngfor)
+    - [ngSwitch](#ngswitch)
+    - [Custom Directives](#custom-directives)
+        - [Renderer](#renderer)
+        - [@HostBinding](#hostbinding)
+        - [@HostListener](#hostlistener)
+- [Services](#services)
+- [Routing](#routing)
+    - [Add a route](#add-a-route)
+    - [Display the routed component](#display-the-routed-component)
+    - [Route in HTML](#route-in-html)
+        - [Absolute Paths](#absolute-paths)
+        - [Relative Paths](#relative-paths)
+    - [Active Router Styling](#active-router-styling)
+    - [Route in TypeScript](#route-in-typescript)
+        - [Absolute Paths](#absolute-paths-1)
+        - [Relative Paths](#relative-paths-1)
+    - [Route Parameters](#route-parameters)
+    - [Query Parameters](#query-parameters)
+    - [Nested Routing](#nested-routing)
+    - [Preserving or Merging Query Parameters when navigating to sub-paths](#preserving-or-merging-query-parameters-when-navigating-to-sub-paths)
+    - [Redirecting and Wildcard Route](#redirecting-and-wildcard-route)
+    - [Route Guards](#route-guards)
+    - [Passing Static Data to a Route](#passing-static-data-to-a-route)
+
+## Components 
 
 **Reference: [new](Angular-Code/src/app/new)**
 
@@ -192,7 +231,7 @@ In `app.component.html`:
 <router-outlet><router-outlet>
 ```
 
-### Route to a specific path
+### Route in HTML
 
 #### Absolute Paths
 
@@ -227,7 +266,7 @@ To go back one path use `../`
    [routerLinkActiveOptions]="{exact: true}">Home</a>
 ```
 
-### Navigating in TypeScript
+### Route in TypeScript
 
 #### Absolute Paths
 
@@ -429,3 +468,4 @@ this.route.data.subscribe(...);
 #### Resolving Dynamic Data
 
 ## Observables
+
