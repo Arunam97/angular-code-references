@@ -2,14 +2,26 @@
 
 - [Components](#components)
     - [Lifecycle](#lifecycle)
+        - [ngOnChanges](#ngonchanges)
+        - [ngOnInit](#ngoninit)
+        - [ngDoCheck](#ngdocheck)
+        - [ngAfterContentInit](#ngaftercontentinit)
+        - [ngAfterContentChecked](#ngaftercontentchecked)
+        - [ngAfterViewInit](#ngafterviewinit)
+        - [ngAfterViewChecked](#ngafterviewchecked)
+        - [ngOnDestroy](#ngondestroy)
 - [Data Binding](#data-binding)
     - [String Interpolation](#1-string-interpolation)
     - [Property Binding](#2-property-binding)
     - [Event Binding](#3-event-binding)
+        - [$event](#event)
     - [Two-Way Binding - [(ngModel)]](#4-two-way-binding---ngmodel)
     - [@Input()](#input)
     - [@Output()](#output)
     - [Template Reference](#template-reference)
+        - [@ViewChild](#viewchild)
+    - [ng-content](#ng-content)
+        - [@ContentChild()](#contentchild)
 - [Directives](#directives)
     - [ngIf](#ngif)
     - [ngStyle](#ngstyle)
@@ -25,21 +37,25 @@
     - [Add a route](#add-a-route)
     - [Display the routed component](#display-the-routed-component)
     - [Route in HTML](#route-in-html)
-        - [Absolute Paths](#absolute-paths-1)
-        - [Relative Paths](#relative-paths-1)
+        - [Absolute Paths](#absolute-paths)
+        - [Relative Paths](#relative-paths)
     - [Active Router Styling](#active-router-styling)
     - [Route in TypeScript](#route-in-typescript)
-        - [Absolute Paths](#absolute-paths-2)
-        - [Relative Paths](#relative-paths-2)
+        - [Absolute Paths](#absolute-paths-1)
+        - [Relative Paths](#relative-paths-1)
     - [Route Parameters](#route-parameters)
     - [Query Parameters](#query-parameters)
     - [Nested Routing](#nested-routing)
     - [Preserving or Merging Query Parameters when navigating to sub-paths](#preserving-or-merging-query-parameters-when-navigating-to-sub-paths)
     - [Redirecting and Wildcard Route](#redirecting-and-wildcard-route)
     - [Route Guards](#route-guards)
+        - [CanActivate](#canactivate)
+        - [CanActivateChild](#canactivatechild)
+        - [CanDeactivate](#candeactivate)
     - [Passing Static Data to a Route](#passing-static-data-to-a-route)
+    - [Resolving Dynamic Data](#resolving-dynamic-data)
 
-## Components 
+## Components
 
 **Reference: [new](Angular-Code/src/app/new)**
 
@@ -49,7 +65,9 @@ Components are the basic building blocks of Angular.
 
 **Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
 
-The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at specific stages of a component's life.
+The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to
+its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at
+specific stages of a component's life.
 
 1. #### ngOnChanges
 
@@ -85,7 +103,8 @@ Called once the component is about to be destroyed.
 
 ## Data Binding
 
-Data binding in Angular refers to the automatic synchronization of data between the model (component) and the view (template) components.
+Data binding in Angular refers to the automatic synchronization of data between the model (component) and the view (
+template) components.
 
 ### 1. String Interpolation
 
@@ -109,7 +128,8 @@ Binding methods from a component to DOM events to handle user interactions.
 
 **Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
 
-A special variable in Angular event bindings that captures and provides access to the event object emitted by the DOM event.
+A special variable in Angular event bindings that captures and provides access to the event object emitted by the DOM
+event.
 
 ### 4. Two-Way Binding - [(ngModel)]
 
@@ -155,7 +175,8 @@ Decorator used to access a content child component or directive from a parent co
 
 ## Directives
 
-Directives are markers on a DOM element that tell Angular to attach a specific behavior to that element or transform the DOM structure and appearance.
+Directives are markers on a DOM element that tell Angular to attach a specific behavior to that element or transform the
+DOM structure and appearance.
 
 ### ngIf
 
@@ -209,7 +230,8 @@ Decorator to subscribe to events of the host element in a custom directive.
 
 **Reference: [services](Angular-Code/src/app/services)**
 
-Services are reusable components that provide shared business logic, data, or functionality across different parts of an application.
+Services are reusable components that provide shared business logic, data, or functionality across different parts of an
+application.
 
 ## Routing
 
@@ -256,9 +278,11 @@ To go back one path use `../`
 
 ### Active Router Styling
 
-`routerLinkActive` can be used to apply specific CSS class when a route is active. All parent paths will also be considered active if a child path is accessed.
+`routerLinkActive` can be used to apply specific CSS class when a route is active. All parent paths will also be
+considered active if a child path is accessed.
 
-`[routerLinkActiveOptions]` can be used to apply CSS styling only when the exact path matches. (i.e. when we only want the child path to be considered active and not the preceding parent paths.)
+`[routerLinkActiveOptions]` can be used to apply CSS styling only when the exact path matches. (i.e. when we only want
+the child path to be considered active and not the preceding parent paths.)
 
 ``` html
 <a routerLink="/home"
@@ -278,7 +302,8 @@ this.router.navigate(['/home']);
 
 #### Relative Paths
 
-Unlike `routerLink`, `Router` does not have access to the current path the component is on. That is why we have to use `ActivatedRoute`.
+Unlike `routerLink`, `Router` does not have access to the current path the component is on. That is why we have to
+use `ActivatedRoute`.
 
 ``` typescript
 constructor (private router: Router, private route: ActivatedRoute) {}
@@ -401,9 +426,11 @@ to the parent component.
 
 When navigating to a new route you can either:
 
-`merge`: Preserves the existing query parameters while adding new ones. If there are query parameters with the same name, the new ones will override the existing ones.
+`merge`: Preserves the existing query parameters while adding new ones. If there are query parameters with the same
+name, the new ones will override the existing ones.
 
-`preserve`: Preserves the existing query parameters. If you navigate to a different route without providing any query parameters, the existing query parameters will be preserved.
+`preserve`: Preserves the existing query parameters. If you navigate to a different route without providing any query
+parameters, the existing query parameters will be preserved.
 
 ``` typescript
 constructor (private router: Router) {}
