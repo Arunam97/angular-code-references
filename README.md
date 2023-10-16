@@ -29,9 +29,8 @@
     - [ngFor](#ngfor)
     - [ngSwitch](#ngswitch)
     - [Custom Directives](#custom-directives)
-        - [Renderer](#renderer)
-        - [@HostBinding](#hostbinding)
-        - [@HostListener](#hostlistener)
+        - [Custom Attribute Directives](#custom-attribute-directives)
+        - [Custom Structural Directives](#custom-structural-directives)
 - [Services](#services)
 - [Routing](#routing)
     - [Add a route](#add-a-route)
@@ -53,7 +52,7 @@
         - [CanActivateChild](#canactivatechild)
         - [CanDeactivate](#candeactivate)
     - [Passing Static Data to a Route](#passing-static-data-to-a-route)
-    - [Resolving Dynamic Data](#resolving-dynamic-data)
+        - [Resolving Dynamic Data](#resolving-dynamic-data)
 
 ## Components
 
@@ -63,41 +62,55 @@ Components are the basic building blocks of Angular.
 
 ### Lifecycle
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
-
 The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to
 its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at
 specific stages of a component's life.
 
 1. #### ngOnChanges
 
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+
 Called after `@Input` property changes.
 
 2. #### ngOnInit
+
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
 
 Called once the component is initialized. Runs after the constructor.
 
 3. #### ngDoCheck
 
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+
 Called during every change detection run.
 
 4. #### ngAfterContentInit
+
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
 
 Called after `ng-content` has been projected into the view.
 
 5. #### ngAfterContentChecked
 
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+
 Called every time the projected content has been checked.
 
 6. #### ngAfterViewInit
+
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
 
 Called after the component's view and all child views have been initialized.
 
 7. #### ngAfterViewChecked
 
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+
 Called after the component's view and all child views have been checked.
 
 8. #### ngOnDestroy
+
+**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
 
 Called once the component is about to be destroyed.
 
@@ -214,17 +227,22 @@ A directive used for conditional rendering based on the value of an expression.
 
 User-defined directives to extend the behavior of elements in the DOM.
 
-#### Renderer
+#### Custom Attribute Directives
 
-A service in Angular to perform low-level DOM manipulations in a way that is safe to use in any environment.
+**Reference: [custom-attribute-directives](Angular-Code/src/app/directives/custom-directives/custom-attribute-directives)**
 
-#### @HostBinding
+Renderer: A service in Angular to perform low-level DOM manipulations in a way that is safe to use in any environment.
 
-Decorator to bind a host element property in a custom directive.
+@HostBinding: Decorator to bind a host element property in a custom directive.
 
-#### @HostListener
+@HostListener: Decorator to subscribe to events of the host element in a custom directive.
 
-Decorator to subscribe to events of the host element in a custom directive.
+#### Custom Structural Directives
+
+**Reference: [custom-structural-directives](Angular-Code/src/app/directives/custom-directives/custom-structural-directives)**
+
+User-defined directives that modify the structure of the DOM by adding, removing, or manipulating elements based on
+specified conditions.
 
 ## Services
 
@@ -493,6 +511,4 @@ this.route.data.subscribe(...);
 ```
 
 #### Resolving Dynamic Data
-
-## Observables
 
