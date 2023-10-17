@@ -52,7 +52,14 @@
         - [CanActivateChild](#canactivatechild)
         - [CanDeactivate](#candeactivate)
     - [Passing Static Data to a Route](#passing-static-data-to-a-route)
-        - [Resolving Dynamic Data](#resolving-dynamic-data)
+    - [Resolving Dynamic Data](#resolving-dynamic-data)
+- [Observables](#observables)
+    - [Creating a Custom Observable](#creating-a-custom-observable)
+    - [Subscribing to an Observable](#subscribing-to-an-observable)
+    - [Unsubscribing from an Observable](#unsubscribing-from-an-observable)
+    - [Using Operators with Observables](#using-operators-with-observables)
+    - [Subjects](#subjects)
+
 
 ## Components
 
@@ -65,6 +72,8 @@ Components are the basic building blocks of Angular.
 The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to
 its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at
 specific stages of a component's life.
+
+Note: Lifecycle hooks are called after the constructor has been called.
 
 1. #### ngOnChanges
 
@@ -351,28 +360,21 @@ idTwo: number = this.route.snapshot.params['paramTwo'];
 To dynamically check for changes in route parameters:
 
 ``` typescript
-constructor (private route: ActivatedRoute) {}
+constructor(private route: ActivatedRoute) {}
 
-this.route.params.subscribe(
-        (params: Params) => {
-            this.idOne = params['paramOne'];
-            this.idTwo = params['paramTwo'];
-        }
-    )
+idOne: number;
+idTwo: number;
+paramSubscription: Subscription = new Subscription();
+
+this.paramSubscription = this.route.params.subscribe((params: Params) => {
+    this.idOne = params['paramOne'];
+    this.idTwo = params['paramTwo'];
+});
 ```
 
 To unsubscribe from changes:
 
 ``` typescript
-constructor (private route: ActivatedRoute) {}
-
-paramSubscription: Subscription = this.route.params.subscribe(
-        (params: Params) => {
-            this.idOne = params['paramOne'];
-            this.idTwo = params['paramTwo'];
-        }
-    )
-    
 this.paramSubscription.unsubscribe();
 ```
 
@@ -422,12 +424,12 @@ In `app-routing.module.ts`:
 ``` typescript
 const routes: Routes = [
     {
-     path: "home", 
-     component: HomeComponent,
-     children: [
-        {path: "sub-path1", component: SubPath1Component},
-        {path: "sub-path2", component: SubPath2Component},
-     ]
+        path: "home", 
+        component: HomeComponent,
+        children: [
+            {path: "sub-path1", component: SubPath1Component},
+            {path: "sub-path2", component: SubPath2Component},
+        ]
     }
 ];
 ```
@@ -510,5 +512,79 @@ recievedMessage: string = this.route.snapshot.data['message'];
 this.route.data.subscribe(...);
 ```
 
-#### Resolving Dynamic Data
+### Resolving Dynamic Data
 
+## Observables
+
+Observables are data sources that emit values over time and can be observed by components, enabling asynchronous programming and handling events, asynchronous requests, and data streams.
+
+### Creating a Custom Observable
+
+``` typescript
+customObservable = new Observable((observer) => {
+    setInterval(() => {
+        observer.next("NEXT!");
+        if (/* 'complete' condition */)
+        {
+            observer.complete();
+        }
+        if (/* 'error' condition */)
+        {
+            observer.error("ERROR");
+        }
+    }, 1000);
+})
+```
+
+### Subscribing to an Observable
+
+``` typescript
+customSubscription: Subscription = new Subscription();
+receivedData: any;
+
+ngOnInit() 
+{
+    this.customSubscription = this.customObservable.subscribe({
+        next: (data) => {
+            this.receivedData = data;
+        },
+        error: (message) => {
+            this.receivedData = message;
+        },
+        complete: () => {
+            this.receivedData = "Complete!";
+        }
+    });
+}
+```
+
+### Unsubscribing from an Observable
+
+``` typescript
+ngOnDestroy() 
+{
+    if(this.customSubscription)
+    {
+        this.customSubscription.unsubscribe();
+    }
+}
+```
+
+### Using Operators with Observables
+
+### Subjects
+
+Subjects are a special type of Observable that also act as an event emitter.
+
+``` typescript
+subject = new Subject<any>();
+
+this.subject.subscribe((data) => {
+    console.log(data);
+});
+    
+this.subject.next("Message 1");
+this.subject.next("Message 2");
+
+this.subject.unsubscribe();
+```
