@@ -20,7 +20,6 @@ export class ServicesComponent {
   }
 
   basicServiceValue: string = "";
-
   people: { name: string, email: string }[] = [];
 
   ngOnInit() {

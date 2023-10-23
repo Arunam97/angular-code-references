@@ -63,101 +63,210 @@
 
 ## Components
 
-**Reference: [new](Angular-Code/src/app/new)**
-
-Components are the basic building blocks of Angular.
-
 ### Lifecycle
 
 The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to
 its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at
 specific stages of a component's life.
-
+ 
 Note: Lifecycle hooks are called after the constructor has been called.
 
-1. #### ngOnChanges
-
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 1. ngOnChanges
 
 Called after `@Input` property changes.
 
-2. #### ngOnInit
+``` typescript
+  @Input() inputData1 = "";
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    for (let changedInput in changes)
+    {
+      let changedProperty = changes[changedInput];
+      let before  = JSON.stringify(changedProperty.previousValue);
+      let after = JSON.stringify(changedProperty.currentValue);
+    }
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 2.  ngOnInit
 
-Called once the component is initialized. Runs after the constructor.
+Called once the component is initialized.
 
-3. #### ngDoCheck
+``` typescript
+  ngOnInit() {
+  
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 3. ngDoCheck
 
 Called during every change detection run.
 
-4. #### ngAfterContentInit
+``` typescript
+  ngDoCheck() {
+    
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 4. ngAfterContentInit
 
 Called after `ng-content` has been projected into the view.
 
-5. #### ngAfterContentChecked
+``` typescript
+  ngAfterContentInit() {
+  
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 5. ngAfterContentChecked
 
 Called every time the projected content has been checked.
 
-6. #### ngAfterViewInit
+``` typescript
+  ngAfterContentChecked() {
+  
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 6. ngAfterViewInit
 
 Called after the component's view and all child views have been initialized.
 
-7. #### ngAfterViewChecked
+``` typescript
+  ngAfterViewInit() {
+  
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 7. ngAfterViewChecked
 
 Called after the component's view and all child views have been checked.
 
-8. #### ngOnDestroy
+``` typescript
+  ngAfterViewChecked() {
+  
+  }
+```
 
-**Reference: [lifecycle](Angular-Code/src/app/lifecycle)**
+#### 8. ngOnDestroy
 
 Called once the component is about to be destroyed.
 
+``` typescript
+  ngOnDestroy() {
+  
+  }
+```
+
 ## Data Binding
 
-Data binding in Angular refers to the automatic synchronization of data between the model (component) and the view (
-template) components.
+Data binding in Angular refers to the automatic synchronization of data between the model (component) and the view (template) components.
 
 ### 1. String Interpolation
 
-**Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
-
 Binding data values as strings directly into the template.
+
+In HTML:
+
+``` angular2html
+<p>String Interpolation: My name is {{ myName }}</p>
+<p>String Interpolation: Function says {{ HelloWorld() }}</p>
+```
+
+In TypeScript:
+
+``` typescript
+  myName: string = "Arunam Gupta.";
+
+  HelloWorld(): string {
+    return "Hello World!";
+  }
+```
 
 ### 2. Property Binding
 
-**Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
-
 Binding data from a component to a property of a DOM element.
+
+In HTML:
+
+``` angular2html
+<p [innerText]="propertyBindingText"></p>
+```
+
+In TypeScript:
+
+``` typescript
+propertyBindingText: string = "This text was inserted into the <p> element using Property Binding.";
+```
 
 ### 3. Event Binding
 
-**Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
-
 Binding methods from a component to DOM events to handle user interactions.
+
+In HTML:
+
+``` angular2html
+<button (click)="eventBindingFunction()">Click to change the text below using a function.</button>
+
+<button (click)="eventBindingText='The button was reset.'">Reset the text below
+  using in-line TypeScript code.</button>
+
+<p>{{ eventBindingText }}</p>
+```
+
+In TypeScript:
+
+``` typescript
+  eventBindingText: string = "The button has not yet been clicked.";
+
+  eventBindingFunction(): void {
+    this.eventBindingText = "The button was clicked!";
+  }
+```
 
 #### $event
 
-**Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
+A special variable in Angular event bindings that captures and provides access to the event object emitted by the DOM event.
 
-A special variable in Angular event bindings that captures and provides access to the event object emitted by the DOM
-event.
+In HTML:
+
+``` angular2html
+<p (click)="dollarEvent($event)">Click this text to highlight it</p>
+```
+
+In TypeScript:
+
+``` typescript
+  dollarEvent(event: Event) {
+    const element = event.target as HTMLElement;
+    if (element.style.color === 'red' && element.style.background === 'yellow') {
+      // If already highlighted, remove the highlighting
+      element.style.color = '';
+      element.style.background = '';
+    } else {
+      // If not highlighted, add highlighting
+      element.style.color = 'red';
+      element.style.background = 'yellow';
+    }
+  }
+```
 
 ### 4. Two-Way Binding - [(ngModel)]
 
-**Reference: [basic-data-binding](Angular-Code/src/app/data-binding/basic-data-binding)**
-
 Binding both the property and event together for real-time updates between the component and the view.
+
+In HTML:
+
+``` angular2html
+<p>{{ ngModelText }}</p>
+<input [(ngModel)]="ngModelText" type="text">
+```
+
+In TypeScript:
+
+``` typescript
+ngModelText: string = "Two way binding.";
+```
 
 ### @Input()
 
@@ -173,15 +282,34 @@ Decorator used to emit custom events from a component.
 
 ### Template Reference
 
-**Reference: [template-reference-view-child](Angular-Code/src/app/data-binding/template-reference-view-child)**
-
 A way to refer to a DOM element or a directive in a template.
+
+In HTML:
+
+``` angular2html
+<p #templateReference>This 'p' element has 'templateReference' tag.</p>
+<p>{{ templateReference }}</p>
+<p>{{ templateReference.innerText }}</p>
+```
 
 #### @ViewChild
 
-**Reference: [template-reference-view-child](Angular-Code/src/app/data-binding/template-reference-view-child)**
-
 Decorator used to access a child component or directive from a parent component.
+
+In HTML:
+
+``` angular2html
+<p #viewChildTemplateReference>This 'p' element has 'viewChildTemplateReference' tag and will be assigned to 'viewChildVariable'.</p>
+<p>{{ viewChildVariable }}</p>
+<p>{{ viewChildVariable.nativeElement }}</p>
+<p>{{ viewChildVariable.nativeElement.innerText }}</p>
+```
+
+In TypeScript:
+
+``` typescript
+@ViewChild('viewChildTemplateReference', {static: true}) viewChildVariable!: ElementRef;
+```
 
 ### ng-content
 
@@ -202,33 +330,127 @@ DOM structure and appearance.
 
 ### ngIf
 
-**Reference: [basic-directives](Angular-Code/src/app/directives/basic-directives)**
-
 A structural directive that conditionally includes or excludes a template based on an expression.
+
+In HTML:
+
+``` angular2html
+<p *ngIf="booleanVariable; else templateElement">This text is shown only if 'booleanVariable' is True.</p>
+<ng-template #templateElement>
+  <p>This text is shown only if 'booleanVariable' is False.</p>
+</ng-template>
+```
+
+In TypeScript:
+
+``` typescript
+booleanVariable: boolean = true;
+```
 
 ### ngStyle
 
-**Reference: [basic-directives](Angular-Code/src/app/directives/basic-directives)**
-
 A directive to set inline styles dynamically based on the component's state.
+
+In HTML:
+
+``` angular2html
+<p [ngStyle]="{background: 'red', color: 'white'}">Styling in-line using ngStyle.</p>
+<p [ngStyle]="newStyle">Styling by inserting the styles through TypeScript variable.</p>
+```
+
+In TypeScript:
+
+``` typescript
+newStyle = {background: 'lightblue', color: 'red'};
+```
 
 ### ngClass
 
-**Reference: [basic-directives](Angular-Code/src/app/directives/basic-directives)**
-
 A directive to add or remove CSS classes dynamically based on the component's state.
+
+In HTML:
+
+``` angular2html
+<p [ngClass]="{'style1': true, 'style2': style2Condition}">This text is styled using multiple classes and
+  applied through ngClass.</p>
+```
+
+In TypeScript:
+
+``` typescript
+style2Condition: boolean = true;
+```
+
+In CSS:
+
+``` css
+.style1 {
+  background-color: yellow;
+}
+
+.style2 {
+  color: red;
+}
+```
 
 ### ngFor
 
-**Reference: [basic-directives](Angular-Code/src/app/directives/basic-directives)**
-
 A structural directive to iterate over a list of items.
+
+In HTML:
+
+``` angular2html
+<p *ngFor="let person of listOfNames; let i = index">{{ i }} : {{ person.name }} is {{ person.age }} years old.</p>
+
+<!--Using a Table-->
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let person of listOfNames">
+    <td>{{ person.name }}</td>
+    <td>{{ person.age }}</td>
+  </tr>
+  </tbody>
+</table>
+```
+
+In TypeScript:
+
+``` typescript
+  listOfNames = [
+    {"name": "John", "age": 30},
+    {"name": "Alice", "age": 25},
+    {"name": "Bob", "age": 35},
+    {"name": "Eva", "age": 28},
+    {"name": "David", "age": 40}
+  ];
+```
 
 ### ngSwitch
 
-**Reference: [basic-directives](Angular-Code/src/app/directives/basic-directives)**
-
 A directive used for conditional rendering based on the value of an expression.
+
+In HTML:
+
+``` angular2html
+<div [ngSwitch]="switchValue">
+  <p *ngSwitchCase="0">This text is displayed if 'switchValue' is 0.</p>
+  <p *ngSwitchCase="5">This text is displayed if 'switchValue' is 5.</p>
+  <p *ngSwitchCase="10">This text is displayed if 'switchValue' is 10.</p>
+  <p *ngSwitchDefault>This text is displayed if 'switchValue' is anything other than 0, 5 or 10.</p>
+</div>
+```
+
+In TypeScript:
+
+``` typescript
+switchValue: number = 0;
+```
 
 ### Custom Directives
 
@@ -257,8 +479,7 @@ specified conditions.
 
 **Reference: [services](Angular-Code/src/app/services)**
 
-Services are reusable components that provide shared business logic, data, or functionality across different parts of an
-application.
+Services are reusable components that provide shared business logic, data, or functionality across different parts of an application.
 
 ## Routing
 
@@ -574,7 +795,7 @@ ngOnDestroy()
 
 ### Subjects
 
-Subjects are a special type of Observable that also act as an event emitter.
+Subjects are a special type of Observable that also act as an event emitter. The core difference between a normal Observable and a Subject is that an Observable emits some data at set intervals that are pre-determined by the observable. There is nothing a user can do to make an Observable emit. A Subject on the other hand can not only be subscribed to just like an Observable but also allows user to make it emit information when needed. This allows us to have more fine-grained control over our code.
 
 ``` typescript
 subject = new Subject<any>();
@@ -588,3 +809,33 @@ this.subject.next("Message 2");
 
 this.subject.unsubscribe();
 ```
+
+## Forms
+
+### Template Driven Forms
+
+#### Submitting the Form
+
+In HTML: 
+
+``` html
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <label for="username">Username</label>
+    <input type="text" id="username" ngModel name="user">
+    <button type="submit">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+onSubmit(form: NgForm)
+{
+    console.log(form);
+    console.log(form.value.user);
+}
+```
+
+
+
+### Reactive Forms

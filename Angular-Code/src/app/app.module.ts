@@ -43,24 +43,14 @@ import {DialogComponent} from './primeng/dialog/dialog.component';
 import {OverlayPanelComponent} from './primeng/overlay-panel/overlay-panel.component';
 import {SidebarComponent} from './primeng/sidebar/sidebar.component';
 import {TooltipComponent} from './primeng/tooltip/tooltip.component';
-import {LifecycleComponent} from './lifecycle/lifecycle.component';
 import {NewComponent} from './new/new.component';
-import {BasicDirectivesComponent} from './directives/basic-directives/basic-directives.component';
-import {BasicDataBindingComponent} from './data-binding/basic-data-binding/basic-data-binding.component';
 import {Parent1Component} from './data-binding/atInput-atOutput/parent1/parent1.component';
 import {Child1Component} from './data-binding/atInput-atOutput/child1/child1.component';
 import {Parent2Component} from './data-binding/ngContent-atContentChild/parent2/parent2.component';
 import {Child2Component} from './data-binding/ngContent-atContentChild/child2/child2.component';
 import {CustomDirectivesComponent} from './directives/custom-directives/custom-directives.component';
-import {
-  CustomStructuralDirective
-} from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
-import {
-  CustomAttributeDirective
-} from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
-import {
-  TemplateReferenceViewChildComponent
-} from './data-binding/template-reference-view-child/template-reference-view-child.component';
+import {CustomStructuralDirective} from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
+import {CustomAttributeDirective} from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
 import {ServicesComponent} from './services/services.component';
 import {BasicService} from "./services/basic-service/basic.service";
 
@@ -87,10 +77,7 @@ import {BasicService} from "./services/basic-service/basic.service";
     OverlayPanelComponent,
     SidebarComponent,
     TooltipComponent,
-    LifecycleComponent,
     NewComponent,
-    BasicDirectivesComponent,
-    BasicDataBindingComponent,
     Parent1Component,
     Child1Component,
     Parent2Component,
@@ -98,7 +85,6 @@ import {BasicService} from "./services/basic-service/basic.service";
     CustomDirectivesComponent,
     CustomStructuralDirective,
     CustomAttributeDirective,
-    TemplateReferenceViewChildComponent,
     ServicesComponent
   ],
   imports: [

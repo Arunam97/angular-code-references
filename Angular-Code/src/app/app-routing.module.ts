@@ -20,18 +20,12 @@ import {DialogComponent} from "./primeng/dialog/dialog.component";
 import {OverlayPanelComponent} from "./primeng/overlay-panel/overlay-panel.component";
 import {SidebarComponent} from "./primeng/sidebar/sidebar.component";
 import {TooltipComponent} from "./primeng/tooltip/tooltip.component";
-import {LifecycleComponent} from "./lifecycle/lifecycle.component";
 import {NewComponent} from "./new/new.component";
 import {Child1Component} from "./data-binding/atInput-atOutput/child1/child1.component";
 import {Child2Component} from "./data-binding/ngContent-atContentChild/child2/child2.component";
 import {Parent1Component} from "./data-binding/atInput-atOutput/parent1/parent1.component";
-import {BasicDataBindingComponent} from "./data-binding/basic-data-binding/basic-data-binding.component";
 import {Parent2Component} from "./data-binding/ngContent-atContentChild/parent2/parent2.component";
-import {BasicDirectivesComponent} from "./directives/basic-directives/basic-directives.component";
 import {CustomDirectivesComponent} from "./directives/custom-directives/custom-directives.component";
-import {
-  TemplateReferenceViewChildComponent
-} from "./data-binding/template-reference-view-child/template-reference-view-child.component";
 import {ServicesComponent} from "./services/services.component";
 
 const routes: Routes = [
@@ -39,13 +33,9 @@ const routes: Routes = [
   {path: "new", component: NewComponent},
   {path: "child1", component: Child1Component},
   {path: "parent1", component: Parent1Component},
-  {path: "basic-data-binding", component: BasicDataBindingComponent},
   {path: "child2", component: Child2Component},
   {path: "parent2", component: Parent2Component},
-  {path: "template-reference-view-child", component: TemplateReferenceViewChildComponent},
-  {path: "basic-directives", component: BasicDirectivesComponent},
   {path: "custom-directives", component: CustomDirectivesComponent},
-  {path: "lifecycle", component: LifecycleComponent},
   {path: "services", component: ServicesComponent},
   {path: "primeng", component: PrimengComponent},
   {path: "calendar", component: CalendarComponent},
