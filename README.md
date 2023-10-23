@@ -2,14 +2,14 @@
 
 - [Components](#components)
     - [Lifecycle](#lifecycle)
-        - [ngOnChanges](#ngonchanges)
-        - [ngOnInit](#ngoninit)
-        - [ngDoCheck](#ngdocheck)
-        - [ngAfterContentInit](#ngaftercontentinit)
-        - [ngAfterContentChecked](#ngaftercontentchecked)
-        - [ngAfterViewInit](#ngafterviewinit)
-        - [ngAfterViewChecked](#ngafterviewchecked)
-        - [ngOnDestroy](#ngondestroy)
+        - [ngOnChanges](#1-ngonchanges)
+        - [ngOnInit](#2-ngoninit)
+        - [ngDoCheck](#3-ngdocheck)
+        - [ngAfterContentInit](#4-ngaftercontentinit)
+        - [ngAfterContentChecked](#5-ngaftercontentchecked)
+        - [ngAfterViewInit](#6-ngafterviewinit)
+        - [ngAfterViewChecked](#7-ngafterviewchecked)
+        - [ngOnDestroy](#8-ngondestroy)
 - [Data Binding](#data-binding)
     - [String Interpolation](#1-string-interpolation)
     - [Property Binding](#2-property-binding)
@@ -88,7 +88,7 @@ Called after `@Input` property changes.
   }
 ```
 
-#### 2.  ngOnInit
+#### 2. ngOnInit
 
 Called once the component is initialized.
 
@@ -325,8 +325,7 @@ Decorator used to access a content child component or directive from a parent co
 
 ## Directives
 
-Directives are markers on a DOM element that tell Angular to attach a specific behavior to that element or transform the
-DOM structure and appearance.
+Directives are markers on a DOM element that tell Angular to attach a specific behavior to that element or transform the DOM structure and appearance.
 
 ### ngIf
 
@@ -472,8 +471,7 @@ Renderer: A service in Angular to perform low-level DOM manipulations in a way t
 
 **Reference: [custom-structural-directives](Angular-Code/src/app/directives/custom-directives/custom-structural-directives)**
 
-User-defined directives that modify the structure of the DOM by adding, removing, or manipulating elements based on
-specified conditions.
+User-defined directives that modify the structure of the DOM by adding, removing, or manipulating elements based on specified conditions.
 
 ## Services
 
@@ -526,11 +524,9 @@ To go back one path use `../`
 
 ### Active Router Styling
 
-`routerLinkActive` can be used to apply specific CSS class when a route is active. All parent paths will also be
-considered active if a child path is accessed.
+`routerLinkActive` can be used to apply specific CSS class when a route is active. All parent paths will also be considered active if a child path is accessed.
 
-`[routerLinkActiveOptions]` can be used to apply CSS styling only when the exact path matches. (i.e. when we only want
-the child path to be considered active and not the preceding parent paths.)
+`[routerLinkActiveOptions]` can be used to apply CSS styling only when the exact path matches. (i.e. when we only want the child path to be considered active and not the preceding parent paths.)
 
 ``` html
 <a routerLink="/home"
@@ -550,8 +546,7 @@ this.router.navigate(['/home']);
 
 #### Relative Paths
 
-Unlike `routerLink`, `Router` does not have access to the current path the component is on. That is why we have to
-use `ActivatedRoute`.
+Unlike `routerLink`, `Router` does not have access to the current path the component is on. That is why we have to use `ActivatedRoute`.
 
 ``` typescript
 constructor (private router: Router, private route: ActivatedRoute) {}
@@ -667,11 +662,9 @@ to the parent component.
 
 When navigating to a new route you can either:
 
-`merge`: Preserves the existing query parameters while adding new ones. If there are query parameters with the same
-name, the new ones will override the existing ones.
+`merge`: Preserves the existing query parameters while adding new ones. If there are query parameters with the same name, the new ones will override the existing ones.
 
-`preserve`: Preserves the existing query parameters. If you navigate to a different route without providing any query
-parameters, the existing query parameters will be preserved.
+`preserve`: Preserves the existing query parameters. If you navigate to a different route without providing any query parameters, the existing query parameters will be preserved.
 
 ``` typescript
 constructor (private router: Router) {}
@@ -797,17 +790,37 @@ ngOnDestroy()
 
 Subjects are a special type of Observable that also act as an event emitter. The core difference between a normal Observable and a Subject is that an Observable emits some data at set intervals that are pre-determined by the observable. There is nothing a user can do to make an Observable emit. A Subject on the other hand can not only be subscribed to just like an Observable but also allows user to make it emit information when needed. This allows us to have more fine-grained control over our code.
 
+In HTML:
+
+``` angular2html
+<button (click)="onClickEmit()">Emit</button>
+<button (click)="onClickUnsubscribe()">Unsubscribe</button>
+```
+
+In TypeScript:
+
 ``` typescript
-subject = new Subject<any>();
+  subject = new Subject<any>();
+  subscribeVariable: Subscription;
 
-this.subject.subscribe((data) => {
-    console.log(data);
-});
-    
-this.subject.next("Message 1");
-this.subject.next("Message 2");
+  constructor()
+  {
+    this.subscribeVariable = this.subject.subscribe((data) =>
+    {
+      console.log(data);
+    });
+  }
 
-this.subject.unsubscribe();
+  onClickEmit()
+  {
+    this.subject.next("Message 1");
+    this.subject.next("Message 2");
+  }
+
+  onClickUnsubscribe()
+  {
+    this.subscribeVariable.unsubscribe();
+  }
 ```
 
 ## Forms
@@ -816,9 +829,9 @@ this.subject.unsubscribe();
 
 #### Submitting the Form
 
-In HTML: 
+In HTML:
 
-``` html
+``` angular2html
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <label for="username">Username</label>
     <input type="text" id="username" ngModel name="user">
@@ -829,13 +842,12 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-onSubmit(form: NgForm)
-{
+  onSubmit(form: NgForm)
+  {
     console.log(form);
+    console.log(form.value);
     console.log(form.value.user);
-}
+  }
 ```
-
-
 
 ### Reactive Forms
