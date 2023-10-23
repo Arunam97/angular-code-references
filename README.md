@@ -65,11 +65,9 @@
 
 ### Lifecycle
 
-The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to
-its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at
-specific stages of a component's life.
+The lifecycle of an Angular component refers to the sequence of events that occur from the creation of the component to its destruction. Angular components have a series of lifecycle hooks that developers can tap into to perform actions at specific stages of a component's life.
  
-Note: Lifecycle hooks are called after the constructor has been called.
+Note: Lifecycle hooks are called after the `constructor()` has been called.
 
 #### 1. ngOnChanges
 
@@ -822,32 +820,3 @@ In TypeScript:
     this.subscribeVariable.unsubscribe();
   }
 ```
-
-## Forms
-
-### Template Driven Forms
-
-#### Submitting the Form
-
-In HTML:
-
-``` angular2html
-<form (ngSubmit)="onSubmit(f)" #f="ngForm">
-    <label for="username">Username</label>
-    <input type="text" id="username" ngModel name="user">
-    <button type="submit">Submit</button>
-</form>
-```
-
-In TypeScript:
-
-``` typescript
-  onSubmit(form: NgForm)
-  {
-    console.log(form);
-    console.log(form.value);
-    console.log(form.value.user);
-  }
-```
-
-### Reactive Forms
