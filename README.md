@@ -820,3 +820,249 @@ In TypeScript:
     this.subscribeVariable.unsubscribe();
   }
 ```
+
+## Forms
+
+### Template Driven Forms
+
+#### Using NgForm
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <label for="username">Username</label>
+
+  <input
+    type="text"
+    id="username"
+    ngModel name="user">
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  onSubmit(form: NgForm)
+  {
+    console.log(form);
+    console.log(form.value);
+    console.log(form.value.user);
+  }
+```
+
+#### Accessing NgForm with @ViewChild
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label for="username">Username</label>
+
+  <input
+    type="text"
+    id="username"
+    ngModel name="user">
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') nameForm !: NgForm;
+
+  onSubmit()
+  {
+    console.log(this.nameForm);
+    console.log(this.nameForm.value);
+    console.log(this.nameForm.value.user);
+  }
+```
+
+#### Data Validation and Custom Styling
+
+List of all Validators: [https://angular.io/api/forms/Validators](https://angular.io/api/forms/Validators).
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label for="username">Username</label>
+
+  <input
+    type="text"
+    id="username"
+    ngModel name="user"
+    required>
+
+  <label for="email">Email</label>
+
+  <input
+    type="text"
+    id="email"
+    ngModel name="email"
+    required
+    email>
+
+  <button type="submit" [disabled]="!f.valid">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') nameForm !: NgForm;
+
+  onSubmit()
+  {
+    // code
+  }
+```
+
+In CSS:
+
+``` css
+input.ng-invalid.ng-touched {
+  border: solid red;
+}
+
+input.ng-valid {
+  border: solid green;
+}
+```
+
+#### Conditionally Generating Error Messages
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label for="email">Email</label>
+
+  <input
+    type="text"
+    id="email"
+    ngModel name="email"
+    required
+    email
+    #emailVariable="ngModel">
+
+  <button type="submit">Submit</button>
+</form>
+
+<p *ngIf="!emailVariable.valid">Email is incorrect.</p>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') nameForm !: NgForm;
+
+  onSubmit()
+  {
+    // code
+  }
+```
+
+#### Assigning Default Value
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label for="username">Username</label>
+
+  <input
+    type="text"
+    id="username"
+    [ngModel]="defaultValue"
+    ngModel name="user">
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') nameForm !: NgForm;
+  defaultValue: string = "Default Name";
+
+  onSubmit()
+  {
+    // code
+  }
+```
+
+#### Two-Way-Binding for Default Value and Input
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label for="username">Username</label>
+
+  <input
+    type="text"
+    id="username"
+    [(ngModel)]="defaultValue"
+    ngModel name="user">
+
+  <button type="submit">Submit</button>
+</form>
+
+<p>{{ defaultValue }}</p>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') nameForm !: NgForm;
+  defaultValue: string = "Default Name";
+
+  onSubmit()
+  {
+    // code
+  }
+```
+
+#### Grouping Form Controls
+
+In HTML:
+
+``` angular2html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+
+  <div ngModelGroup="formGroup" #formInputs="ngModelGroup">
+    <label for="username">Username</label>
+
+    <input
+      type="text"
+      id="username"
+      ngModel name="user">
+  </div>
+
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') nameForm !: NgForm;
+  @ViewChild('formInputs') formInputsVar !: NgForm;
+
+  onSubmit()
+  {
+    console.log(this.formInputsVar);
+    console.log(this.formInputsVar.value);
+  }
+```
+
+#### Radio Buttons
+
