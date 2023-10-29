@@ -166,7 +166,7 @@ Binding data values as strings directly into the template.
 
 In HTML:
 
-``` angular2html
+``` html
 <p>String Interpolation: My name is {{ myName }}</p>
 <p>String Interpolation: Function says {{ HelloWorld() }}</p>
 ```
@@ -187,7 +187,7 @@ Binding data from a component to a property of a DOM element.
 
 In HTML:
 
-``` angular2html
+``` html
 <p [innerText]="propertyBindingText"></p>
 ```
 
@@ -203,7 +203,7 @@ Binding methods from a component to DOM events to handle user interactions.
 
 In HTML:
 
-``` angular2html
+``` html
 <button (click)="eventBindingFunction()">Click to change the text below using a function.</button>
 
 <button (click)="eventBindingText='The button was reset.'">Reset the text below
@@ -228,7 +228,7 @@ A special variable in Angular event bindings that captures and provides access t
 
 In HTML:
 
-``` angular2html
+``` html
 <p (click)="dollarEvent($event)">Click this text to highlight it</p>
 ```
 
@@ -255,7 +255,7 @@ Binding both the property and event together for real-time updates between the c
 
 In HTML:
 
-``` angular2html
+``` html
 <p>{{ ngModelText }}</p>
 <input [(ngModel)]="ngModelText" type="text">
 ```
@@ -284,7 +284,7 @@ A way to refer to a DOM element or a directive in a template.
 
 In HTML:
 
-``` angular2html
+``` html
 <p #templateReference>This 'p' element has 'templateReference' tag.</p>
 <p>{{ templateReference }}</p>
 <p>{{ templateReference.innerText }}</p>
@@ -296,7 +296,7 @@ Decorator used to access a child component or directive from a parent component.
 
 In HTML:
 
-``` angular2html
+``` html
 <p #viewChildTemplateReference>This 'p' element has 'viewChildTemplateReference' tag and will be assigned to 'viewChildVariable'.</p>
 <p>{{ viewChildVariable }}</p>
 <p>{{ viewChildVariable.nativeElement }}</p>
@@ -331,7 +331,7 @@ A structural directive that conditionally includes or excludes a template based 
 
 In HTML:
 
-``` angular2html
+``` html
 <p *ngIf="booleanVariable; else templateElement">This text is shown only if 'booleanVariable' is True.</p>
 <ng-template #templateElement>
   <p>This text is shown only if 'booleanVariable' is False.</p>
@@ -350,7 +350,7 @@ A directive to set inline styles dynamically based on the component's state.
 
 In HTML:
 
-``` angular2html
+``` html
 <p [ngStyle]="{background: 'red', color: 'white'}">Styling in-line using ngStyle.</p>
 <p [ngStyle]="newStyle">Styling by inserting the styles through TypeScript variable.</p>
 ```
@@ -367,7 +367,7 @@ A directive to add or remove CSS classes dynamically based on the component's st
 
 In HTML:
 
-``` angular2html
+``` html
 <p [ngClass]="{'style1': true, 'style2': style2Condition}">This text is styled using multiple classes and
   applied through ngClass.</p>
 ```
@@ -396,7 +396,7 @@ A structural directive to iterate over a list of items.
 
 In HTML:
 
-``` angular2html
+``` html
 <p *ngFor="let person of listOfNames; let i = index">{{ i }} : {{ person.name }} is {{ person.age }} years old.</p>
 
 <!--Using a Table-->
@@ -434,7 +434,7 @@ A directive used for conditional rendering based on the value of an expression.
 
 In HTML:
 
-``` angular2html
+``` html
 <div [ngSwitch]="switchValue">
   <p *ngSwitchCase="0">This text is displayed if 'switchValue' is 0.</p>
   <p *ngSwitchCase="5">This text is displayed if 'switchValue' is 5.</p>
@@ -790,7 +790,7 @@ Subjects are a special type of Observable that also act as an event emitter. The
 
 In HTML:
 
-``` angular2html
+``` html
 <button (click)="onClickEmit()">Emit</button>
 <button (click)="onClickUnsubscribe()">Unsubscribe</button>
 ```
@@ -829,7 +829,7 @@ In TypeScript:
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
   <label for="username">Username</label>
 
@@ -857,7 +857,7 @@ In TypeScript:
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
   <label for="username">Username</label>
 
@@ -889,7 +889,7 @@ List of all Validators: [https://angular.io/api/forms/Validators](https://angula
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
   <label for="username">Username</label>
 
@@ -939,7 +939,7 @@ input.ng-valid {
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
   <label for="email">Email</label>
 
@@ -972,7 +972,7 @@ In TypeScript:
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
   <label for="username">Username</label>
 
@@ -1002,7 +1002,7 @@ In TypeScript:
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
   <label for="username">Username</label>
 
@@ -1034,7 +1034,7 @@ In TypeScript:
 
 In HTML:
 
-``` angular2html
+``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
 
   <div ngModelGroup="formGroup" #formInputs="ngModelGroup">
