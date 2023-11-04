@@ -1,5 +1,9 @@
 # Angular Reference Sheet
 
+Click [here](Angular-Code/src/app/primeng) for my PrimeNG component collection.
+
+## Index
+
 - [Components](#components)
     - [Lifecycle](#lifecycle)
         - [ngOnChanges](#1-ngonchanges)
@@ -59,6 +63,19 @@
     - [Unsubscribing from an Observable](#unsubscribing-from-an-observable)
     - [Using Operators with Observables](#using-operators-with-observables)
     - [Subjects](#subjects)
+- [Forms](#forms)
+    - [Template Driven Forms](#template-driven-forms)
+        - [Using NgForm](#using-ngform)
+        - [Accessing NgForm with @ViewChild](#accessing-ngform-with-@viewchild)
+        - [Data Validation and Custom Styling](#data-validation-and-custom-styling)
+        - [Conditionally Generating Error Messages](#conditionally-generating-error-messages)
+        - [Assigning Default Value](#assigning-default-value)
+        - [Two-Way-Binding for Default Value and Input](#two-way-binding-for-default-value-and-input)
+        - [Grouping Form Controls](#grouping-form-controls)
+        - [Radio Buttons](#radio-buttons)
+        - [Setting Values](#setting-values)
+        - [Patching Values](#patching-values)
+        - [Resetting the form](#resetting-the-form)
 
 
 ## Components
@@ -76,7 +93,8 @@ Called after `@Input` property changes.
 ``` typescript
   @Input() inputData1 = "";
   
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void 
+  {
     for (let changedInput in changes)
     {
       let changedProperty = changes[changedInput];
@@ -91,7 +109,8 @@ Called after `@Input` property changes.
 Called once the component is initialized.
 
 ``` typescript
-  ngOnInit() {
+  ngOnInit()
+  {
   
   }
 ```
@@ -101,8 +120,9 @@ Called once the component is initialized.
 Called during every change detection run.
 
 ``` typescript
-  ngDoCheck() {
-    
+  ngDoCheck() 
+  {
+  
   }
 ```
 
@@ -111,7 +131,8 @@ Called during every change detection run.
 Called after `ng-content` has been projected into the view.
 
 ``` typescript
-  ngAfterContentInit() {
+  ngAfterContentInit() 
+  {
   
   }
 ```
@@ -121,7 +142,8 @@ Called after `ng-content` has been projected into the view.
 Called every time the projected content has been checked.
 
 ``` typescript
-  ngAfterContentChecked() {
+  ngAfterContentChecked() 
+  {
   
   }
 ```
@@ -131,7 +153,8 @@ Called every time the projected content has been checked.
 Called after the component's view and all child views have been initialized.
 
 ``` typescript
-  ngAfterViewInit() {
+  ngAfterViewInit() 
+  {
   
   }
 ```
@@ -141,7 +164,8 @@ Called after the component's view and all child views have been initialized.
 Called after the component's view and all child views have been checked.
 
 ``` typescript
-  ngAfterViewChecked() {
+  ngAfterViewChecked() 
+  {
   
   }
 ```
@@ -151,7 +175,8 @@ Called after the component's view and all child views have been checked.
 Called once the component is about to be destroyed.
 
 ``` typescript
-  ngOnDestroy() {
+  ngOnDestroy() 
+  {
   
   }
 ```
@@ -176,8 +201,9 @@ In TypeScript:
 ``` typescript
   myName: string = "Arunam Gupta.";
 
-  HelloWorld(): string {
-    return "Hello World!";
+  HelloWorld(): string 
+  {
+    return "Hello, World!";
   }
 ```
 
@@ -206,8 +232,9 @@ In HTML:
 ``` html
 <button (click)="eventBindingFunction()">Click to change the text below using a function.</button>
 
-<button (click)="eventBindingText='The button was reset.'">Reset the text below
-  using in-line TypeScript code.</button>
+<button (click)="eventBindingText='The button was reset.'">
+Reset the text below using in-line TypeScript code.
+</button>
 
 <p>{{ eventBindingText }}</p>
 ```
@@ -217,7 +244,8 @@ In TypeScript:
 ``` typescript
   eventBindingText: string = "The button has not yet been clicked.";
 
-  eventBindingFunction(): void {
+  eventBindingFunction(): void 
+  {
     this.eventBindingText = "The button was clicked!";
   }
 ```
@@ -1037,15 +1065,13 @@ In HTML:
 ``` html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
 
-  <div ngModelGroup="formGroup" #formInputs="ngModelGroup">
+  <div ngModelGroup="divGroup" #divTemplate="ngModelGroup">
     <label for="username">Username</label>
-
     <input
       type="text"
       id="username"
       ngModel name="user">
   </div>
-
 
   <button type="submit">Submit</button>
 </form>
@@ -1055,14 +1081,136 @@ In TypeScript:
 
 ``` typescript
   @ViewChild('f') nameForm !: NgForm;
-  @ViewChild('formInputs') formInputsVar !: NgForm;
+  @ViewChild('divTemplate') divVar !: NgForm;
 
   onSubmit()
   {
-    console.log(this.formInputsVar);
-    console.log(this.formInputsVar.value);
+    console.log(this.nameForm);
+    console.log(this.nameForm.value);
+    console.log(this.nameForm.value["divGroup"]);
+    console.log(this.nameForm.value["divGroup"].user);
+
+    console.log(this.divVar);
+    console.log(this.divVar.value);
+    console.log(this.divVar.value.user);
   }
 ```
 
 #### Radio Buttons
 
+In HTML:
+
+``` html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <div *ngFor="let option of optionsList">
+    <label>
+      {{ option }}
+      <input type="radio" name="Option Choice" ngModel [value]="option">
+    </label>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  optionsList = ["Option 1", "Option 2", "Option 3"];
+
+  @ViewChild('f') formElement !: NgForm;
+
+  onSubmit()
+  {
+    console.log(this.formElement);
+    console.log(this.formElement.value);
+    console.log(this.formElement.value['Option Choice']);
+  }
+```
+
+#### Setting Values
+
+When using `.setValue()` make sure to provide the values for all inputs in the `ngForm`.
+
+In HTML:
+
+``` html
+<form (ngSubmit)="suggest()" #f="ngForm">
+
+  <label for="username">Username</label>
+  <input
+    type="text"
+    id="username"
+    ngModel name="user">
+
+  <label for="email">Email</label>
+  <input
+    type="text"
+    id="email"
+    ngModel name="email">
+
+  <button type="submit">Click to set values</button>
+
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') formElement !: NgForm;
+  email: String = "user@email.com"
+
+  suggest()
+  {
+    this.formElement.setValue({
+      user: "admin",
+      email: this.email
+      })
+  }
+```
+
+#### Patching Values
+
+When using `.form.patchValue()` you do not have to give values for all the inputs. Any inputs that are not assigned value in the function will be left unchanged.
+
+In HTML:
+
+``` html
+<form (ngSubmit)="suggest()" #f="ngForm">
+
+  <label for="username">Username</label>
+  <input
+    type="text"
+    id="username"
+    ngModel name="user">
+
+  <label for="email">Email</label>
+  <input
+    type="text"
+    id="email"
+    ngModel name="email">
+
+  <button type="submit">Click to patch values</button>
+
+</form>
+```
+
+In TypeScript:
+
+``` typescript
+  @ViewChild('f') formElement !: NgForm;
+
+  suggest()
+  {
+    this.formElement.form.patchValue({
+      user: "admin"
+      })
+  }
+```
+
+#### Resetting the form
+
+In TypeScript:
+
+``` typescript
+this.formElement.reset();
+```
