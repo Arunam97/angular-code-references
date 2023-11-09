@@ -56,7 +56,7 @@ Click [here](Angular-Code/src/app/primeng) for my PrimeNG component collection.
         - [CanActivateChild](#canactivatechild)
         - [CanDeactivate](#candeactivate)
     - [Passing Static Data to a Route](#passing-static-data-to-a-route)
-    - [Resolving Dynamic Data](#resolving-dynamic-data)
+    - [Resolve Guard](#resolve-guard)
 - [Observables](#observables)
     - [Creating a Custom Observable](#creating-a-custom-observable)
     - [Subscribing to an Observable](#subscribing-to-an-observable)
@@ -727,9 +727,113 @@ const routes: Routes = [
 
 #### CanActivate
 
+In Service class:
+
+``` typescript
+export class AuthGuardService implements CanActivate {
+  
+  // This should be replaced with real authentication logic
+  private isAuthenticated = false; 
+
+  constructor(private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.isAuthenticated) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+```
+
+In `app-routing.module.ts`:
+
+``` typescript
+const routes: Routes = [
+    {
+        path: "home",
+        component: HomeComponent,
+        canActivate: [AuthGuard]
+    }
+];
+```
+
 #### CanActivateChild
 
+In Service class:
+
+``` typescript
+export class AuthGuardChildService implements CanActivateChild {  
+  // This should be replaced with real authentication logic
+  private isAuthenticated = false; 
+
+  constructor(private router: Router) {}
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.isAuthenticated) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+}
+```
+
+In `app-routing.module.ts`:
+
+``` typescript
+const routes: Routes = [
+    {
+        path: "home", 
+        component: HomeComponent, 
+        canActivateChild: [AuthGuardChildService],
+        children: [{path: 'child', component: ChildComponent}]
+    }
+];
+```
+
 #### CanDeactivate
+
+In Service class:
+
+``` typescript
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+  canDeactivate(
+    component: CanComponentDeactivate,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    // If the component has a canDeactivate method, call it, else allow deactivation
+    return component.canDeactivate ? component.canDeactivate() : true;
+  }
+}
+```
+
+In Component:
+
+``` typescript
+  saved: boolean = false;
+
+  canDeactivate(): boolean {
+    if (!this.saved) {
+      return window.confirm('You have unsaved changes! Are you sure you want to leave?');
+    }
+    return true;
+  }
+```
+
+In `app-routing.module.ts`:
+
+``` typescript
+const routes: Routes = [
+    {path: "home", 
+    component: HomeComponent,
+    canDeactivate: [CanDeactivateGuard]
+];
+```
 
 ### Passing Static Data to a Route
 
@@ -737,7 +841,11 @@ In `app-routing.module.ts`:
 
 ``` typescript
 const routes: Routes = [
-    {path: "home", component: HomeComponent, data: {message: "Message from route!"}},
+    {
+        path: "home", 
+        component: HomeComponent, 
+        data: {message: "Message from route!"}
+    },
 ];
 ```
 
@@ -752,9 +860,55 @@ recievedMessage: string = this.route.snapshot.data['message'];
 this.route.data.subscribe(...);
 ```
 
-### Resolving Dynamic Data
+### Resolve Guard
 
-## Observables
+A resolve guard in Angular is a service interface that you can implement to fetch data before navigating to a route. This data is then provided to the route's component, ensuring that the necessary data is available at the time the component is instantiated.
+
+In Service class:
+
+``` typescript
+export class DataResolverService implements Resolve<DataType> {
+  constructor(private dataService: DataService) {}
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<DataType> | Promise<DataType> | DataType {
+    return this.dataService.getData();
+  }
+}
+```
+
+In `app-routing.module.ts`:
+
+``` typescript
+const routes: Routes = [
+  {
+    path: 'example',
+    component: ExampleComponent,
+    resolve: { myData: DataResolverService }
+  }
+```
+
+In Component:
+
+``` typescript
+export class ExampleComponent implements OnInit {
+  data: DataType;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.data = this.route.snapshot.data['myData'];
+    // or with Observable if you expect changes
+    this.route.data.subscribe((data: { myData: DataType }) => {
+      this.data = data.myData;
+    });
+  }
+}
+```
+
+##  Using RxJS for Observables
 
 Observables are data sources that emit values over time and can be observed by components, enabling asynchronous programming and handling events, asynchronous requests, and data streams.
 
@@ -811,6 +965,26 @@ ngOnDestroy()
 ```
 
 ### Using Operators with Observables
+
+``` typescript
+customSubscription: Subscription = new Subscription();
+alteredObservable: Observable = new Observable();
+receivedData: any;
+
+  ngOnInit() {
+    this.alteredObservable = this.customObservable.pipe(map(data => 'Data is: ' + data));
+
+    this.subscription = this.alteredObservable.subscribe({
+      next: (data) => {
+        this.receivedData = data;
+      }, error: (message) => {
+        this.receivedData = message;
+      }, complete: () => {
+        this.receivedData = "Complete!";
+      }
+    });
+  }
+```
 
 ### Subjects
 
