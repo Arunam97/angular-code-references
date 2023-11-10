@@ -76,6 +76,16 @@ Click [here](Angular-Code/src/app/primeng) for my PrimeNG component collection.
         - [Setting Values](#setting-values)
         - [Patching Values](#patching-values)
         - [Resetting the form](#resetting-the-form)
+- [HTTP Requests](#http-requests)
+    - [GET](#get)
+    - [POST](#post)
+    - [PUT](#put)
+    - [DELETE](#delete)
+    - [Handling errors using `throwError` and `catchError`](#handling-errors-using-throwerror-and-catcherror)
+    - [Interceptors](#interceptors)
+        - [Logging Requests](#logging-requests)
+        - [Modifying Requests](#modifying-requests)
+        - [Multiple Interceptors](#multiple-interceptors)
 
 
 ## Components
@@ -971,19 +981,22 @@ customSubscription: Subscription = new Subscription();
 alteredObservable: Observable = new Observable();
 receivedData: any;
 
-  ngOnInit() {
-    this.alteredObservable = this.customObservable.pipe(map(data => 'Data is: ' + data));
+ngOnInit() {
+  this.alteredObservable = this.customObservable.pipe(
+    map((data) => {
+      return 'Data is: ' + data
+    }));
 
-    this.subscription = this.alteredObservable.subscribe({
-      next: (data) => {
-        this.receivedData = data;
-      }, error: (message) => {
-        this.receivedData = message;
-      }, complete: () => {
-        this.receivedData = "Complete!";
-      }
-    });
-  }
+  this.subscription = this.alteredObservable.subscribe({
+    next: (data) => {
+      this.receivedData = data;
+    }, error: (message) => {
+      this.receivedData = message;
+    }, complete: () => {
+      this.receivedData = "Complete!";
+    }
+  });
+}
 ```
 
 ### Subjects
@@ -1387,4 +1400,318 @@ In TypeScript:
 
 ``` typescript
 this.formElement.reset();
+```
+
+## HTTP Requests
+
+HTTP requests should be made in the **Service** class and the wrapping function should be called in the **Components**.
+
+### GET
+
+``` typescript
+private getSubscription: Subscription;
+receivedData: any;
+
+constructor(private http: HttpClient) {}
+
+getFunction(
+  requestUrl: string,
+  requestHeaders?: HttpHeaders, // Optional
+  requestParams?: HttpParams, // Optional
+  responseType: 'json' | 'blob' | 'text' = 'json', // Default is 'json'
+  observeType: 'body' | 'response' | 'events' = 'response' // Default is 'response'
+): Observable<any> {
+  return this.http.get<any>(requestUrl, { 
+    headers: requestHeaders, 
+    params: requestParams, 
+    responseType: responseType, 
+    observe: observeType 
+  });
+}
+
+ngOnInit() {
+  const apiUrl = 'your-api-url'; // Replace with your actual URL
+  const customHeaders = new HttpHeaders({ 'Your-Header-Name': 'Your-Header-Value' });
+  const queryParams = new HttpParams().set('paramName', 'paramValue');
+
+  this.getSubscription = this.getFunction(apiUrl, customHeaders, queryParams, 'json', 'response').subscribe({
+    next: (response) => {
+      console.log('Status:', response.status); // Accessing status
+      this.receivedData = response.body; // Accessing body
+    },
+    error: (error) => {
+      console.error('Error:', error);
+      this.receivedData = `Error: ${error.message}`;
+    },
+    complete: () => {
+      console.log("Request completed");
+    }
+  });
+}
+```
+
+### POST
+
+``` typescript
+private postSubscription: Subscription;
+receivedData: any;
+
+constructor(private http: HttpClient) {}
+
+postFunction(
+  postUrl: string,
+  postData: any,
+  postHeaders?: HttpHeaders, // Optional
+  postParams?: HttpParams, // Optional
+  responseType: 'json' | 'blob' | 'text' = 'json', // Default is 'json'
+  observeType: 'body' | 'response' | 'events' = 'response' // Default is 'response'
+): Observable<any> {
+  return this.http.post<any>(postUrl, postData, { 
+    headers: postHeaders, 
+    params: postParams, 
+    responseType, 
+    observe: observeType 
+    });
+}
+
+ngOnInit() {
+  const apiUrl = 'your-api-url'; // Replace with your actual URL
+  const requestBody = { /* your request body */ }; // Define your POST body
+  const customHeaders = new HttpHeaders({ 'Your-Header-Name': 'Your-Header-Value' });
+  const queryParams = new HttpParams().set('paramName', 'paramValue');
+
+  this.postSubscription = this.postFunction(apiUrl, requestBody, customHeaders, queryParams, 'json', 'response').subscribe({
+    next: (response) => {
+      console.log('Status:', response.status); // Accessing status
+      this.receivedData = response.body; // Accessing body
+    },
+    error: (error) => {
+      console.error('Error:', error);
+      this.receivedData = `Error: ${error.message}`;
+    },
+    complete: () => {
+      console.log("Request completed");
+    }
+  });
+}
+```
+
+### PUT
+
+``` typescript
+private putSubscription: Subscription;
+receivedData: any;
+
+constructor(private http: HttpClient) {}
+
+putFunction(
+  putUrl: string,
+  putData: any,
+  putHeaders?: HttpHeaders, // Optional
+  putParams?: HttpParams, // Optional
+  responseType: 'json' | 'blob' | 'text' = 'json', // Default is 'json'
+  observeType: 'body' | 'response' | 'events' = 'response' // Default is 'response'
+): Observable<any> {
+  return this.http.put<any>(putUrl, putData, {
+    headers: putHeaders,
+    params: putParams,
+    responseType,
+    observe: observeType
+  });
+}
+
+ngOnInit() {
+  const apiUrl = 'your-api-url'; // Replace with your actual URL
+  const requestBody = { /* your request body for PUT */ }; // Define your PUT body
+  const customHeaders = new HttpHeaders({ 'Your-Header-Name': 'Your-Header-Value' });
+  const queryParams = new HttpParams().set('paramName', 'paramValue');
+
+  this.putSubscription = this.putFunction(apiUrl, requestBody, customHeaders, queryParams, 'json', 'response').subscribe({
+    next: (response) => {
+      console.log('Status:', response.status); // Accessing status
+      this.receivedData = response.body; // Accessing body
+    },
+    error: (error) => {
+      console.error('Error:', error);
+      this.receivedData = `Error: ${error.message}`;
+    },
+    complete: () => {
+      console.log("Request completed");
+    }
+  });
+}
+```
+
+### DELETE
+
+``` typescript
+private deleteSubscription: Subscription;
+receivedData: any;
+
+constructor(private http: HttpClient) {}
+
+deleteFunction(
+  deleteUrl: string,
+  deleteHeaders?: HttpHeaders, // Optional
+  deleteParams?: HttpParams, // Optional
+  responseType: 'json' | 'blob' | 'text' = 'json', // Default is 'json'
+  observeType: 'body' | 'response' | 'events' = 'response' // Default is 'response'
+): Observable<any> {
+  return this.http.delete<any>(deleteUrl, {
+    headers: deleteHeaders,
+    params: deleteParams,
+    responseType,
+    observe: observeType
+  });
+}
+
+ngOnInit() {
+  const apiUrl = 'your-api-url'; // Replace with your actual URL
+  const customHeaders = new HttpHeaders({ 'Your-Header-Name': 'Your-Header-Value' });
+  const queryParams = new HttpParams().set('paramName', 'paramValue');
+
+  this.deleteSubscription = this.deleteFunction(apiUrl, customHeaders, queryParams, 'json', 'response').subscribe({
+    next: (response) => {
+      console.log('Status:', response.status); // Accessing status
+      this.receivedData = response.body; // Accessing body
+    },
+    error: (error) => {
+      console.error('Error:', error);
+      this.receivedData = `Error: ${error.message}`;
+    },
+    complete: () => {
+      console.log("Request completed");
+    }
+  });
+}
+```
+
+### Handling errors using `throwError` and `catchError`
+
+``` typescript
+private getSubscription: Subscription;
+receivedData: any;
+
+constructor(private http: HttpClient) {}
+
+getFunction(url: string): Observable<any> {
+  return this.http.get<any>(url).pipe(
+    catchError((error) => {
+      return throwError(error);
+    })
+  );
+}
+
+ngOnInit() {
+  const url = 'your-api-url'; // Replace with your actual URL
+
+  this.getSubscription = this.getFunction(url).subscribe({
+    next: (data) => {
+      this.receivedData = data;
+    },
+    error: (message) => {
+      // Handle the error here
+      console.error('Error:', message);
+      this.receivedData = `Error: ${message}`;
+    },
+    complete: () => {
+      this.receivedData = "Complete!";
+    }
+  });
+}
+```
+
+### Interceptors
+
+Interceptors are a way for us to intercept and modify HTTP requests.
+
+#### Logging Requests
+
+In Service class:
+
+``` typescript
+@Injectable()
+export class SimpleLoggingInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  
+    // Log URL
+    console.log('Request URL:', req.url);
+    
+    // Log HTTP Method
+    console.log('Request Method:', req.method);
+    
+    // Log Headers
+    console.log('Request Headers:', req.headers);
+    
+    // Log Body (if applicable)
+    if (req.body) {
+      console.log('Request Body:', req.body);
+    }
+    
+    // Log the entire request
+    console.log('Intercepted HTTP request:', req);  
+      
+    // Forward the request without modifying it
+    return next.handle(req);
+  }
+}
+```
+
+In `app.module.ts`:
+
+``` typescript
+providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SimpleLoggingInterceptor, multi: true }
+  ],
+```
+
+#### Modifying Requests
+
+In Service class:
+
+``` typescript
+@Injectable()
+export class ModifiedRequestInterceptor implements HttpInterceptor {
+  // Define new request values
+  private newUrl = 'https://new-api-url.com';
+  private newHeaders = new HttpHeaders({ 'Custom-Header': 'NewValue' });
+  private newBody = { key: 'newValue' };
+  private newMethod = 'POST';
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Create a new request with the new values
+    const modifiedReq = req.clone({
+      url: this.newUrl,
+      headers: this.newHeaders,
+      body: this.newBody,
+      method: this.newMethod
+    });
+
+    // Forward the modified request
+    return next.handle(modifiedReq);
+  }
+}
+```
+
+In `app.module.ts`:
+
+``` typescript
+providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ModifiedRequestInterceptor, multi: true }
+  ],
+```
+
+#### Multiple Interceptors
+
+Interceptors are executed in the order they are defined in `providers`.
+
+In `app.module.ts`:
+
+``` typescript
+providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SimpleLoggingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor2, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor3, multi: true },
+    // ... other providers
+  ],
 ```
