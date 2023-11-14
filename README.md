@@ -1,9 +1,12 @@
 # Angular Reference Sheet
 
-This repository is designed to be a quick reference for some of the most used Angular features. You can download and run the [Angular-Code](Angular-Code) project to see [PrimeNG](Angular-Code/src/app/primeng), [ngrx](Angular-Code/src/app/ngrx) and other Angular features in action. The code is neatly organized so that you can run and change the code to experiment with various Angular components I have already created.
+This repository is designed to be a quick reference for some of the most used Angular features. You can download and run the [Angular-Code](Angular-Code) project to see PrimeNG, NgRx and other Angular features in action. 
+
+The code is neatly organized so that you can run and change the code to experiment with various Angular components I have already created. There is a 'new' component left empty for further experimentation. Updated till Angular 16.
 
 ## Index
 
+- [PrimeNG](#primeng)
 - [Components](#components)
     - [Lifecycle](#lifecycle)
         - [ngOnChanges](#1-ngonchanges)
@@ -101,6 +104,10 @@ This repository is designed to be a quick reference for some of the most used An
     - [Selectors](#selectors-1)
     - [Effects](#effects-1)
 
+## PrimeNG
+
+[Click here for the PrimeNG library.](Angular-Code/src/app/primeng)
+
 ## Components
 
 ### Lifecycle
@@ -114,17 +121,17 @@ Note: Lifecycle hooks are called after the `constructor()` has been called.
 Called after `@Input` property changes.
 
 ``` typescript
-  @Input() inputData1 = "";
-  
-  ngOnChanges(changes: SimpleChanges): void 
+@Input() inputData1 = "";
+
+ngOnChanges(changes: SimpleChanges): void
   {
     for (let changedInput in changes)
-    {
-      let changedProperty = changes[changedInput];
-      let before  = JSON.stringify(changedProperty.previousValue);
-      let after = JSON.stringify(changedProperty.currentValue);
-    }
-  }
+{
+  let changedProperty = changes[changedInput];
+  let before  = JSON.stringify(changedProperty.previousValue);
+  let after = JSON.stringify(changedProperty.currentValue);
+}
+}
 ```
 
 #### 2. ngOnInit
@@ -132,10 +139,10 @@ Called after `@Input` property changes.
 Called once the component is initialized.
 
 ``` typescript
-  ngOnInit()
-  {
-  
-  }
+ngOnInit()
+{
+
+}
 ```
 
 #### 3. ngDoCheck
@@ -143,10 +150,10 @@ Called once the component is initialized.
 Called during every change detection run.
 
 ``` typescript
-  ngDoCheck() 
-  {
-  
-  }
+ngDoCheck()
+{
+
+}
 ```
 
 #### 4. ngAfterContentInit
@@ -154,10 +161,10 @@ Called during every change detection run.
 Called after `ng-content` has been projected into the view.
 
 ``` typescript
-  ngAfterContentInit() 
-  {
-  
-  }
+ngAfterContentInit()
+{
+
+}
 ```
 
 #### 5. ngAfterContentChecked
@@ -165,10 +172,10 @@ Called after `ng-content` has been projected into the view.
 Called every time the projected content has been checked.
 
 ``` typescript
-  ngAfterContentChecked() 
-  {
-  
-  }
+ngAfterContentChecked()
+{
+
+}
 ```
 
 #### 6. ngAfterViewInit
@@ -176,10 +183,10 @@ Called every time the projected content has been checked.
 Called after the component's view and all child views have been initialized.
 
 ``` typescript
-  ngAfterViewInit() 
-  {
-  
-  }
+ngAfterViewInit()
+{
+
+}
 ```
 
 #### 7. ngAfterViewChecked
@@ -187,10 +194,10 @@ Called after the component's view and all child views have been initialized.
 Called after the component's view and all child views have been checked.
 
 ``` typescript
-  ngAfterViewChecked() 
-  {
-  
-  }
+ngAfterViewChecked()
+{
+
+}
 ```
 
 #### 8. ngOnDestroy
@@ -198,10 +205,10 @@ Called after the component's view and all child views have been checked.
 Called once the component is about to be destroyed.
 
 ``` typescript
-  ngOnDestroy() 
-  {
-  
-  }
+ngOnDestroy()
+{
+
+}
 ```
 
 ## Data Binding
@@ -222,12 +229,12 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  myName: string = "Arunam Gupta.";
+myName: string = "Arunam Gupta.";
 
-  HelloWorld(): string 
-  {
-    return "Hello, World!";
-  }
+HelloWorld(): string
+{
+  return "Hello, World!";
+}
 ```
 
 ### 2. Property Binding
@@ -265,9 +272,9 @@ Reset the text below using in-line TypeScript code.
 In TypeScript:
 
 ``` typescript
-  eventBindingText: string = "The button has not yet been clicked.";
+eventBindingText: string = "The button has not yet been clicked.";
 
-  eventBindingFunction(): void 
+eventBindingFunction(): void
   {
     this.eventBindingText = "The button was clicked!";
   }
@@ -286,18 +293,18 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  dollarEvent(event: Event) {
-    const element = event.target as HTMLElement;
-    if (element.style.color === 'red' && element.style.background === 'yellow') {
-      // If already highlighted, remove the highlighting
-      element.style.color = '';
-      element.style.background = '';
-    } else {
-      // If not highlighted, add highlighting
-      element.style.color = 'red';
-      element.style.background = 'yellow';
-    }
+dollarEvent(event: Event) {
+  const element = event.target as HTMLElement;
+  if (element.style.color === 'red' && element.style.background === 'yellow') {
+    // If already highlighted, remove the highlighting
+    element.style.color = '';
+    element.style.background = '';
+  } else {
+    // If not highlighted, add highlighting
+    element.style.color = 'red';
+    element.style.background = 'yellow';
   }
+}
 ```
 
 ### 4. Two-Way Binding - [(ngModel)]
@@ -319,15 +326,84 @@ ngModelText: string = "Two way binding.";
 
 ### @Input()
 
-**Reference: [atInput-atOutput](Angular-Code/src/app/data-binding/atInput-atOutput)**
+Decorator used to pass data from parent component to child component.
 
-Decorator used to pass data into a component.
+In Child HTML:
+
+``` html
+<p>{{ childVariable1 }}</p>
+<p>{{ childVariable2 }}</p>
+```
+
+In Child TypeScript:
+
+``` typescript
+// 'childVariable1' will be used.
+// Not the recommended syntax but good to know.
+@Input() childVariable1: string = "";
+
+// 'childCustomProperty' will be used instead of 'childVariable2'.
+@Input("childCustomProperty") childVariable2: string = "";
+```
+
+In Parent HTML:
+
+``` html
+<app-child [childVariable1]="parentVariable1"
+            [childCustomProperty]="parentVariable2">
+</app-child>
+```
+
+In Parent TypeScript:
+
+``` typescript
+parentVariable1: string = "This text is sent over to childVariable1 using @Input.";
+parentVariable2: string = "This text is sent over to childVariable2 using @Input and custom input property.";
+```
 
 ### @Output()
 
-**Reference: [atInput-atOutput](Angular-Code/src/app/data-binding/atInput-atOutput)**
+Decorator used to emit custom events from child component to parent component.
 
-Decorator used to emit custom events from a component.
+In Child HTML:
+
+``` html
+<button (click)="emitFunction()">Click to emitFunction() in child component.</button>
+```
+
+In Child TypeScript:
+
+``` typescript
+// 'childEventEmitter1' will be used.
+// Not the recommended syntax to declare but good to know.
+@Output() childEventEmitter1: EventEmitter<string> = new EventEmitter();
+
+// 'childCustomEvent' will be used instead of 'childEventEmitter2'.
+@Output("childCustomEvent") childEventEmitter2: EventEmitter<string> = new EventEmitter();
+
+emitFunction() 
+{
+  this.childEventEmitter2.emit("@Output(): This data was emitted from child1 component and sent to parent1 component.");
+}
+```
+
+In Parent HTML:
+
+``` html
+<app-child (childCustomEvent)="emitReceiver($event)"></app-child>
+
+<p>{{ receivedMessage }}</p>
+```
+
+In Parent TypeScript:
+
+``` typescript
+receivedMessage: string = "";
+
+emitReceiver(emittedMessage: string) {
+  this.receivedMessage = emittedMessage;
+}
+```
 
 ### Template Reference
 
@@ -362,15 +438,65 @@ In TypeScript:
 
 ### ng-content
 
-**Reference: [ngContent-atContentChild](Angular-Code/src/app/data-binding/ngContent-atContentChild)**
-
 A placeholder in a component's template that allows the insertion of content from the parent component.
+
+In Child HTML:
+
+``` html
+<ng-content select=".ngContentClass1"></ng-content>
+<ng-content select=".ngContentClass2"></ng-content>
+```
+
+In Parent HTML:
+
+``` html
+<app-child>
+  <div class="ngContentClass1">
+    <p>ng-content: Data sent from parent2 to child2 using ng-content.</p>
+  </div>
+  <div class="ngContentClass2">
+    <p>ng-content: Multiple HTML DOM elements can be passed using class and select with ng-content.</p>
+  </div>
+</app-child>
+```
 
 #### @ContentChild()
 
-**Reference: [ngContent-atContentChild](Angular-Code/src/app/data-binding/ngContent-atContentChild)**
-
 Decorator used to access a content child component or directive from a parent component.
+
+In Child HTML:
+
+``` html
+<p>{{ ngContent1Text }}</p>
+<p>{{ ngContent2Text }}</p>
+```
+
+In Child TypeScript:
+
+``` typescript
+@ContentChild("ngContent1TemplateReferenceVariable", {static: true}) ngContent1Variable!: ElementRef;
+@ContentChild("ngContent2TemplateReferenceVariable", {static: true}) ngContent2Variable!: ElementRef;
+ngContent1Text = "";
+ngContent2Text = "";
+
+ngAfterContentInit() {
+  this.ngContent1Text = this.ngContent1Variable.nativeElement.textContent;
+  this.ngContent2Text = this.ngContent2Variable.nativeElement.textContent;
+}
+```
+
+In Parent HTML:
+
+``` html
+<app-child>
+  <div class="ngContentClass1" #ngContent1TemplateReferenceVariable>
+    <p>ng-content: Data sent from parent2 to child2 using ng-content.</p>
+  </div>
+  <div class="ngContentClass2" #ngContent2TemplateReferenceVariable>
+    <p>ng-content: Multiple HTML DOM elements can be passed using class and select with ng-content.</p>
+  </div>
+</app-child>
+```
 
 ## Directives
 
@@ -470,13 +596,13 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  listOfNames = [
-    {"name": "John", "age": 30},
-    {"name": "Alice", "age": 25},
-    {"name": "Bob", "age": 35},
-    {"name": "Eva", "age": 28},
-    {"name": "David", "age": 40}
-  ];
+listOfNames = [
+  {"name": "John", "age": 30},
+  {"name": "Alice", "age": 25},
+  {"name": "Bob", "age": 35},
+  {"name": "Eva", "age": 28},
+  {"name": "David", "age": 40}
+];
 ```
 
 ### ngSwitch
@@ -609,7 +735,7 @@ In `app-routing.module.ts`:
 
 ``` typescript
 const routes: Routes = [
-    {path: "home/:paramOne/:paramTwo", component: HomeComponent}
+  {path: "home/:paramOne/:paramTwo", component: HomeComponent}
 ];
 ```
 
@@ -838,14 +964,14 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
 In Component:
 
 ``` typescript
-  saved: boolean = false;
+saved: boolean = false;
 
-  canDeactivate(): boolean {
-    if (!this.saved) {
-      return window.confirm('You have unsaved changes! Are you sure you want to leave?');
-    }
-    return true;
+canDeactivate(): boolean {
+  if (!this.saved) {
+    return window.confirm('You have unsaved changes! Are you sure you want to leave?');
   }
+  return true;
+}
 ```
 
 In `app-routing.module.ts`:
@@ -1026,27 +1152,27 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  subject = new Subject<any>();
-  subscribeVariable: Subscription;
+subject = new Subject<any>();
+subscribeVariable: Subscription;
 
-  constructor()
+constructor()
+{
+  this.subscribeVariable = this.subject.subscribe((data) =>
   {
-    this.subscribeVariable = this.subject.subscribe((data) =>
-    {
-      console.log(data);
-    });
-  }
+    console.log(data);
+  });
+}
 
-  onClickEmit()
-  {
-    this.subject.next("Message 1");
-    this.subject.next("Message 2");
-  }
+onClickEmit()
+{
+  this.subject.next("Message 1");
+  this.subject.next("Message 2");
+}
 
-  onClickUnsubscribe()
-  {
-    this.subscribeVariable.unsubscribe();
-  }
+onClickUnsubscribe()
+{
+  this.subscribeVariable.unsubscribe();
+}
 ```
 
 ## Forms
@@ -1073,12 +1199,12 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  onSubmit(form: NgForm)
-  {
-    console.log(form);
-    console.log(form.value);
-    console.log(form.value.user);
-  }
+onSubmit(form: NgForm)
+{
+  console.log(form);
+  console.log(form.value);
+  console.log(form.value.user);
+}
 ```
 
 #### Accessing NgForm with @ViewChild
@@ -1101,14 +1227,14 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') nameForm !: NgForm;
+@ViewChild('f') nameForm !: NgForm;
 
-  onSubmit()
-  {
-    console.log(this.nameForm);
-    console.log(this.nameForm.value);
-    console.log(this.nameForm.value.user);
-  }
+onSubmit()
+{
+  console.log(this.nameForm);
+  console.log(this.nameForm.value);
+  console.log(this.nameForm.value.user);
+}
 ```
 
 #### Data Validation and Custom Styling
@@ -1143,12 +1269,12 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') nameForm !: NgForm;
+@ViewChild('f') nameForm !: NgForm;
 
-  onSubmit()
-  {
-    // code
-  }
+onSubmit()
+{
+  // code
+}
 ```
 
 In CSS:
@@ -1188,12 +1314,12 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') nameForm !: NgForm;
+@ViewChild('f') nameForm !: NgForm;
 
-  onSubmit()
-  {
-    // code
-  }
+onSubmit()
+{
+  // code
+}
 ```
 
 #### Assigning Default Value
@@ -1217,13 +1343,13 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') nameForm !: NgForm;
-  defaultValue: string = "Default Name";
+@ViewChild('f') nameForm !: NgForm;
+defaultValue: string = "Default Name";
 
-  onSubmit()
-  {
-    // code
-  }
+onSubmit()
+{
+  // code
+}
 ```
 
 #### Two-Way-Binding for Default Value and Input
@@ -1249,13 +1375,13 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') nameForm !: NgForm;
-  defaultValue: string = "Default Name";
+@ViewChild('f') nameForm !: NgForm;
+defaultValue: string = "Default Name";
 
-  onSubmit()
-  {
-    // code
-  }
+onSubmit()
+{
+  // code
+}
 ```
 
 #### Grouping Form Controls
@@ -1280,20 +1406,20 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') nameForm !: NgForm;
-  @ViewChild('divTemplate') divVar !: NgForm;
+@ViewChild('f') nameForm !: NgForm;
+@ViewChild('divTemplate') divVar !: NgForm;
 
-  onSubmit()
-  {
-    console.log(this.nameForm);
-    console.log(this.nameForm.value);
-    console.log(this.nameForm.value["divGroup"]);
-    console.log(this.nameForm.value["divGroup"].user);
+onSubmit()
+{
+  console.log(this.nameForm);
+  console.log(this.nameForm.value);
+  console.log(this.nameForm.value["divGroup"]);
+  console.log(this.nameForm.value["divGroup"].user);
 
-    console.log(this.divVar);
-    console.log(this.divVar.value);
-    console.log(this.divVar.value.user);
-  }
+  console.log(this.divVar);
+  console.log(this.divVar.value);
+  console.log(this.divVar.value.user);
+}
 ```
 
 #### Radio Buttons
@@ -1315,16 +1441,16 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  optionsList = ["Option 1", "Option 2", "Option 3"];
+optionsList = ["Option 1", "Option 2", "Option 3"];
 
-  @ViewChild('f') formElement !: NgForm;
+@ViewChild('f') formElement !: NgForm;
 
-  onSubmit()
-  {
-    console.log(this.formElement);
-    console.log(this.formElement.value);
-    console.log(this.formElement.value['Option Choice']);
-  }
+onSubmit()
+{
+  console.log(this.formElement);
+  console.log(this.formElement.value);
+  console.log(this.formElement.value['Option Choice']);
+}
 ```
 
 #### Setting Values
@@ -1356,16 +1482,16 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') formElement !: NgForm;
-  email: String = "user@email.com"
+@ViewChild('f') formElement !: NgForm;
+email: String = "user@email.com"
 
-  suggest()
-  {
-    this.formElement.setValue({
-      user: "admin",
-      email: this.email
-      })
-  }
+suggest()
+{
+  this.formElement.setValue({
+    user: "admin",
+    email: this.email
+  })
+}
 ```
 
 #### Patching Values
@@ -1397,14 +1523,14 @@ In HTML:
 In TypeScript:
 
 ``` typescript
-  @ViewChild('f') formElement !: NgForm;
+@ViewChild('f') formElement !: NgForm;
 
-  suggest()
-  {
-    this.formElement.form.patchValue({
-      user: "admin"
-      })
-  }
+suggest()
+{
+  this.formElement.form.patchValue({
+    user: "admin"
+  })
+}
 ```
 
 #### Resetting the form
@@ -1674,8 +1800,8 @@ In `app.module.ts`:
 
 ``` typescript
 providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: SimpleLoggingInterceptor, multi: true }
-  ],
+  { provide: HTTP_INTERCEPTORS, useClass: SimpleLoggingInterceptor, multi: true }
+],
 ```
 
 #### Modifying Requests

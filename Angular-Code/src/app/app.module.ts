@@ -44,10 +44,6 @@ import {OverlayPanelComponent} from './primeng/overlay-panel/overlay-panel.compo
 import {SidebarComponent} from './primeng/sidebar/sidebar.component';
 import {TooltipComponent} from './primeng/tooltip/tooltip.component';
 import {NewComponent} from './new/new.component';
-import {Parent1Component} from './data-binding/atInput-atOutput/parent1/parent1.component';
-import {Child1Component} from './data-binding/atInput-atOutput/child1/child1.component';
-import {Parent2Component} from './data-binding/ngContent-atContentChild/parent2/parent2.component';
-import {Child2Component} from './data-binding/ngContent-atContentChild/child2/child2.component';
 import {CustomDirectivesComponent} from './directives/custom-directives/custom-directives.component';
 import {CustomStructuralDirective} from './directives/custom-directives/custom-structural-directives/custom-structural.directive';
 import {CustomAttributeDirective} from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
@@ -83,10 +79,6 @@ import {ListEffects} from "./ngrx/list.effects";
     SidebarComponent,
     TooltipComponent,
     NewComponent,
-    Parent1Component,
-    Child1Component,
-    Parent2Component,
-    Child2Component,
     CustomDirectivesComponent,
     CustomStructuralDirective,
     CustomAttributeDirective,

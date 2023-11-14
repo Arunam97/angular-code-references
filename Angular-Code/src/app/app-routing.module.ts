@@ -21,10 +21,6 @@ import {OverlayPanelComponent} from "./primeng/overlay-panel/overlay-panel.compo
 import {SidebarComponent} from "./primeng/sidebar/sidebar.component";
 import {TooltipComponent} from "./primeng/tooltip/tooltip.component";
 import {NewComponent} from "./new/new.component";
-import {Child1Component} from "./data-binding/atInput-atOutput/child1/child1.component";
-import {Child2Component} from "./data-binding/ngContent-atContentChild/child2/child2.component";
-import {Parent1Component} from "./data-binding/atInput-atOutput/parent1/parent1.component";
-import {Parent2Component} from "./data-binding/ngContent-atContentChild/parent2/parent2.component";
 import {CustomDirectivesComponent} from "./directives/custom-directives/custom-directives.component";
 import {ServicesComponent} from "./services/services.component";
 import {NgrxComponent} from "./ngrx/ngrx.component";
@@ -32,10 +28,6 @@ import {NgrxComponent} from "./ngrx/ngrx.component";
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "new", component: NewComponent},
-  {path: "child1", component: Child1Component},
-  {path: "parent1", component: Parent1Component},
-  {path: "child2", component: Child2Component},
-  {path: "parent2", component: Parent2Component},
   {path: "custom-directives", component: CustomDirectivesComponent},
   {path: "services", component: ServicesComponent},
   {path: "ngrx", component: NgrxComponent},
@@ -58,6 +50,7 @@ const routes: Routes = [
   {path: "overlay-panel", component: OverlayPanelComponent},
   {path: "sidebar", component: SidebarComponent},
   {path: "tooltip", component: TooltipComponent},
+  {path: "**", redirectTo: ""}
 ];
 
 @NgModule({
