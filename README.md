@@ -1,6 +1,6 @@
 # Angular Reference Sheet
 
-Click [here](Angular-Code/src/app/primeng) for my PrimeNG component collection.
+This repository is designed to be a quick reference for some of the most used Angular features. You can download and run the [Angular-Code](Angular-Code) project to see [PrimeNG](Angular-Code/src/app/primeng), [ngrx](Angular-Code/src/app/ngrx) and other Angular features in action. The code is neatly organized so that you can run and change the code to experiment with various Angular components I have already created.
 
 ## Index
 
@@ -86,7 +86,20 @@ Click [here](Angular-Code/src/app/primeng) for my PrimeNG component collection.
         - [Logging Requests](#logging-requests)
         - [Modifying Requests](#modifying-requests)
         - [Multiple Interceptors](#multiple-interceptors)
-
+- [NgRx](#ngrx)
+    - [Basic Concepts of NgRx](#basic-concepts-of-ngrx)
+        - [Store](#store)
+        - [Reducers](#reducers)
+        - [Actions](#actions)
+        - [Selectors](#selectors)
+        - [Effects](#effects)
+    - [How they all connect together](#how-they-all-connect-together)
+    - [Setup](#setup)
+    - [Store](#store-1)
+    - [Reducers](#reducers-1)
+    - [Actions](#actions-1)
+    - [Selectors](#selectors-1)
+    - [Effects](#effects-1)
 
 ## Components
 
@@ -1714,4 +1727,148 @@ providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor3, multi: true },
     // ... other providers
   ],
+```
+
+## NgRx
+
+**Reference: [ngrx](Angular-Code/src/app/ngrx)**
+
+### Basic Concepts of NgRx
+
+* **Store:** A single, immutable data structure that stores the entire state of your application.
+* **Reducers:** Pure functions that take the current state and an action, and return a new state.
+* **Actions:** Plain JavaScript objects that describe what happened. For example, 'INCREMENT', 'DECREMENT'.
+* **Selectors:** Functions used to select, derive and compose pieces of state.
+* **Effects:** Handle side effects, like asynchronous operations.
+
+### How they all connect together
+
+1. The Store is the central part that holds the state of the entire application. Components and services can select data from the store, and it gets updated based on the actions and reducers.
+2. Reducers listen for actions and update the state accordingly. They are pure functions that determine how the state changes in response to actions. Logic of all the Actions is written in the Reducers.
+3. Actions are dispatched from components or services when an event occurs (like a user interaction).
+4. Selectors are used within components to select data from the store. They can compute derived data, allowing the store to keep a minimal and efficient state.
+5. Effects listen for actions, perform side effects (like API calls), and dispatch new actions either immediately or based on the result of side effects. They are used to handle logic that doesn't fit into a component or a reducer, such as asynchronous operations.
+
+### Setup
+
+Install NgRx by executing the following command:
+
+`ng add @ngrx/store`
+
+### Store
+
+In app.module.ts:
+
+``` typescript
+@NgModule({
+  ...
+  imports: [
+    ...
+    // This is where the 'Store' is managed.
+    // The `ng add @ngrx/store` command creates this automatically.
+    // One store can have mutiple reducers.
+    StoreModule.forRoot({
+      listReducerImport: listReducer
+    }),
+    // The `ng add @ngrx/effects` command will create the below line for Effects.
+    EffectsModule.forRoot([ListEffects])
+  ],
+  ...
+})
+```
+
+### Reducers
+
+In `list.reducer.ts`:
+
+``` typescript
+const listInitialState: string[] = [];
+
+export const listReducer = createReducer(
+  listInitialState,
+  on(addLine, (state, action) =>
+  {
+    return state.concat(action.line);
+  }),
+  on(removeLine, (state, action) =>
+  {
+    return state.slice(0, action.index).concat(state.slice(action.index + 1));
+  })
+);
+```
+
+### Actions
+
+In `list.actions.ts`
+
+``` typescript
+export const addLine = createAction(
+  '[List] Add',
+  props<{ line: string }>()
+);
+
+export const removeLine = createAction(
+  '[List] Remove',
+  props<{ index: number }>()
+);
+```
+
+### Selectors
+
+In `list.selectors.ts`
+
+``` typescript
+export const selectList = (state: {listReducerImport: string[]}) => state.listReducerImport;
+
+// Selector to get the total number of words in the list
+export const selectTotalWords = createSelector(
+  selectList,
+  (list) => {
+    return list
+      .map(item => item.trim().split(/\s+/).length) // Split each item into words and count
+      .reduce((total, current) => total + current, 0); // Sum up all word counts
+  }
+);
+
+// Selector to get the total number of letters in the list
+export const selectTotalLetters = createSelector(
+  selectList,
+  (list) => {
+    return list
+      .map(item => item.replace(/\s+/g, '').length) // Remove all whitespace and count letters
+      .reduce((total, current) => total + current, 0); // Sum up all letter counts
+  }
+);
+```
+
+### Effects
+
+Install NgRx Effects by executing the following command:
+
+`ng add @ngrx/effects`
+
+In `list.effects.ts`
+
+``` typescript
+@Injectable()
+export class ListEffects {
+  // Each property here is a separate effect that takes place.
+  logAddLine$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(addLine),
+        tap((action) => console.log('Added Line:', action.line))
+      ),
+    { dispatch: false } // No new actions are dispatched
+  );
+
+  logRemoveLine$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(removeLine),
+        tap((action) => console.log('Removed Line Number:', action.index + 1))
+      ),
+    { dispatch: false } // No new actions are dispatched
+  );
+
+  constructor(private actions$: Actions) {}
+}
 ```

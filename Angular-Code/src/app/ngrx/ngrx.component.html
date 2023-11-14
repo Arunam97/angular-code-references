@@ -1,0 +1,13 @@
+<p>Simple <a href="https://ngrx.io/" target="_blank">NgRx</a> application to manage a list.</p>
+
+<input [(ngModel)]="lineInput" type="text">
+<button (click)="addToList()">Add to List</button>
+
+<p>Total Words in List: {{ totalWords$ | async }}</p>
+<p>Total Letters in List: {{ totalLetters$ | async }}</p>
+<ol>
+  <li *ngFor="let line of list$ | async; let i = index">
+    {{ line }}
+    <button (click)="removeLine(i)">Remove</button>
+  </li>
+</ol>

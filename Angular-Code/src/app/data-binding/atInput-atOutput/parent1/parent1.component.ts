@@ -7,8 +7,8 @@ import {Component} from '@angular/core';
 })
 export class Parent1Component {
   // @Input()
-  parentVariable1: string = "@Input(): This text is sent over to child1 using @Input.";
-  parentVariable2: string = "@Input(): This text is sent over to child1 using @Input and custom input property.";
+  parentVariable1: string = "This text is sent over to child1 using @Input.";
+  parentVariable2: string = "This text is sent over to child1 using @Input and custom input property.";
 
   // @Output()
   receivedMessage: string = "";

@@ -27,6 +27,7 @@ import {Parent1Component} from "./data-binding/atInput-atOutput/parent1/parent1.
 import {Parent2Component} from "./data-binding/ngContent-atContentChild/parent2/parent2.component";
 import {CustomDirectivesComponent} from "./directives/custom-directives/custom-directives.component";
 import {ServicesComponent} from "./services/services.component";
+import {NgrxComponent} from "./ngrx/ngrx.component";
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: "parent2", component: Parent2Component},
   {path: "custom-directives", component: CustomDirectivesComponent},
   {path: "services", component: ServicesComponent},
+  {path: "ngrx", component: NgrxComponent},
   {path: "primeng", component: PrimengComponent},
   {path: "calendar", component: CalendarComponent},
   {path: "checkbox", component: CheckboxComponent},

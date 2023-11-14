@@ -53,6 +53,11 @@ import {CustomStructuralDirective} from './directives/custom-directives/custom-s
 import {CustomAttributeDirective} from './directives/custom-directives/custom-attribute-directives/custom-attribute.directive';
 import {ServicesComponent} from './services/services.component';
 import {BasicService} from "./services/basic-service/basic.service";
+import {NgrxComponent} from './ngrx/ngrx.component';
+import {StoreModule} from '@ngrx/store';
+import {listReducer} from "./ngrx/list.reducer";
+import { EffectsModule } from '@ngrx/effects';
+import {ListEffects} from "./ngrx/list.effects";
 
 @NgModule({
   declarations: [
@@ -85,7 +90,8 @@ import {BasicService} from "./services/basic-service/basic.service";
     CustomDirectivesComponent,
     CustomStructuralDirective,
     CustomAttributeDirective,
-    ServicesComponent
+    ServicesComponent,
+    NgrxComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +115,11 @@ import {BasicService} from "./services/basic-service/basic.service";
     DialogModule,
     OverlayPanelModule,
     SidebarModule,
-    TooltipModule
+    TooltipModule,
+    StoreModule.forRoot({
+      listReducerImport: listReducer
+    }),
+    EffectsModule.forRoot([ListEffects])
   ],
   providers: [BasicService],
   bootstrap: [AppComponent]
