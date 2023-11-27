@@ -1,4 +1,4 @@
-# Angular Reference Sheet
+# Angular Reference Repository
 
 This repository is designed to be a quick reference for some of the most used Angular features. You can download and run the [Angular-Code](Angular-Code) project to see PrimeNG, NgRx and other Angular features in action. 
 
